@@ -64,7 +64,7 @@ const Contact = () => {
   return (
     <div className=" w-[90%] mx-auto mt-6 mb-10">
       <h2 className="text-4xl font-semibold text-center pb-6">Contact Us</h2>
-      <div className="bg-gray-300 shadow-2xl py-4 px-6 rounded-md w-[70%] mx-auto">
+      <div className="bg-white shadow-2xl py-4 px-6 rounded-md w-[70%] mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="font-ebgaramond">
           <div className="flex space-x-5">
             <div className="w-full">

@@ -57,7 +57,10 @@ const TextInput = ({
       >
         {isRequired ? (
           <div className="flex items-center">
-            {label} <span className="text-red-500 pl-1 pt-1">*</span>
+            {label}{" "}
+            <span style={{ color: "#ef4444" }} className="pl-1 pt-1">
+              *
+            </span>
           </div>
         ) : (
           <div className="flex items-center">
