@@ -14,8 +14,9 @@ import { GoArrowSwitch } from "react-icons/go";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { FcOnlineSupport } from "react-icons/fc";
 import { FaXTwitter } from "react-icons/fa6";
-import { AiOutlineGoogle } from "react-icons/ai";
+import { AiOutlineGoogle, AiOutlineEye } from "react-icons/ai";
 import { HiOutlineMinusSm } from "react-icons/hi";
+import { BsEyeSlash } from "react-icons/bs";
 
 export const ICONS = {
   time: IoTimeOutline,
@@ -37,4 +38,6 @@ export const ICONS = {
   delete: MdDelete,
   add: MdAdd,
   minus: HiOutlineMinusSm,
+  eyelock: BsEyeSlash,
+  eye: AiOutlineEye,
 };

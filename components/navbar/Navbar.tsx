@@ -1,8 +1,8 @@
 "use client";
 import { navbarData } from "@/utils/data";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { ICONS } from "@/utils/icons";
 import { useAppSelector } from "@/redux/hooks/hooks";
@@ -12,6 +12,11 @@ const Navbar = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const [open, setOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+    router.push("/login");
+  };
   return (
     <>
       <div className="bg-white px-3 pt-2 pb-3 sticky top-0 z-50 border-b-2 shadow-md">
@@ -58,7 +63,10 @@ const Navbar = () => {
                   </span>
                 </div>
               </div>
-              <Button className=" font-semibold bg-[#202C45] tracking-widest text-white">
+              <Button
+                onClick={handleLogin}
+                className=" font-semibold bg-[#202C45] tracking-widest text-white"
+              >
                 Login
               </Button>
             </div>
