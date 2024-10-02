@@ -8,10 +8,11 @@ import {
 import { formatCurrency, formatNumber } from "@/utils/format";
 import { ICONS } from "@/utils/icons";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import image from "../../public/cart1.jpg";
+import { useRouter } from "next/navigation";
 
 type CartProp = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,12 @@ const Cart = ({ setOpen, open }: CartProp) => {
   const { cartItems } = useAppSelector((state) => state.cart);
 
   const subtotal = cartItems.reduce((a, b) => a + b.price * b.qty, 0);
+  const router = useRouter();
+
+  const handleCheckout = (e: FormEvent) => {
+    e.preventDefault();
+    router.push("/checkout");
+  };
 
   return (
     <div
@@ -54,7 +61,10 @@ const Cart = ({ setOpen, open }: CartProp) => {
                   {formatCurrency(subtotal)}
                 </h3>
               </div>
-              <Button className=" bg-green-500 text-2xl font-bold py-3 text-center w-full">
+              <Button
+                onClick={handleCheckout}
+                className=" bg-green-500 text-2xl font-bold py-3 text-center w-full"
+              >
                 Checkout
               </Button>
             </div>

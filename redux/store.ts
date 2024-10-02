@@ -14,16 +14,20 @@ import {
 
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import cartSlice from "./slice/cartSlice";
+import userApi from "./rtk/createUser";
+import userSlice from "./slice/userSlice";
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["cart", "wishList", "order", "users"],
+  whitelist: ["cart", "order", "user"],
   blacklist: ["allProduct"],
 };
 
 const rootReducers = combineReducers({
   cart: cartSlice,
+  user: userSlice,
+  [userApi.reducerPath]: userApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
@@ -35,7 +39,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(userApi.middleware),
 });
 
 export const persistor = persistStore(store);

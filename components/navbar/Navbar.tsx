@@ -5,18 +5,27 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { ICONS } from "@/utils/icons";
-import { useAppSelector } from "@/redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import Cart from "../cart/Cart";
+import { logout } from "@/redux/slice/userSlice";
 
 const Navbar = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
+  const { user, isAuthenticated } = useAppSelector((state) => state.user);
   const [open, setOpen] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     router.push("/login");
   };
+
+  const handleLogout = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(logout());
+  };
+
   return (
     <>
       <div className="bg-white px-3 pt-2 pb-3 sticky top-0 z-50 border-b-2 shadow-md">
@@ -63,12 +72,24 @@ const Navbar = () => {
                   </span>
                 </div>
               </div>
-              <Button
-                onClick={handleLogin}
-                className=" font-semibold bg-[#202C45] tracking-widest text-white"
-              >
-                Login
-              </Button>
+              {isAuthenticated ? (
+                <>
+                  <h3>MOB</h3>
+                  <Button
+                    onClick={handleLogout}
+                    className=" font-semibold bg-[#202C45] tracking-widest text-white"
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  className=" font-semibold bg-[#202C45] tracking-widest text-white"
+                >
+                  Login
+                </Button>
+              )}
             </div>
           </div>
         </div>

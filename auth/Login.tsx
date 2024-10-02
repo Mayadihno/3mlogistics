@@ -1,10 +1,16 @@
 "use client";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useLoginUserMutation } from "@/redux/rtk/createUser";
+import { login, setSessionToken } from "@/redux/slice/userSlice";
 import { ICONS } from "@/utils/icons";
+import { setItem } from "@/utils/storage";
 import SubmitButton from "@/utils/submitButton";
 import TextInput from "@/utils/TextInput";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaBullseye } from "react-icons/fa";
 
 type LoginProp = {
   email: string;
@@ -12,6 +18,7 @@ type LoginProp = {
 };
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
   const {
     register,
     reset,
@@ -19,14 +26,33 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginProp>();
 
-  const onSubmit = () => {};
+  const [loginUser] = useLoginUserMutation();
+  const onSubmit = async (data: LoginProp) => {
+    try {
+      setLoading(true);
+      const { data: res } = await loginUser({ data });
+      if (res.status === 200) {
+        toast.success(res?.message);
+        setLoading(false);
+        setItem("sessionToken", res?.accessToken);
+        dispatch(login(res?.data));
+      } else {
+        toast.error(res?.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error("Internal Server error try again later");
+    }
+  };
 
   return (
     <div className=" w-[70%] mx-auto mb-10">
-      <h2 className="text-4xl font-semibold text-center pt-8">Login</h2>
-      <div className=" w-1/2 mx-auto my-6 p-4 shadow-lg rounded-md">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="my-3">
+      <h2 className="text-4xl font-semibold text-center pb-6 pt-8">Login</h2>
+      <div className="w-1/2 mx-auto my-6 shadow-2xl rounded-md">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 px-4 py-4">
+          <div className="py-4">
             <TextInput
               label="Email"
               register={register}
@@ -36,7 +62,7 @@ const Login = () => {
               type="email"
             />
           </div>
-          <div className="py-3">
+          <div className="pt-2">
             <TextInput
               label="Password"
               placeholder="password"
@@ -58,7 +84,7 @@ const Login = () => {
             />
           </div>
         </form>
-        <div className=" pt-2 font-medium font-urbanist text-base">
+        <div className="px-4 py-2 font-medium font-urbanist text-base">
           <h4>
             Don't have an account?
             <Link href={"/register"} className="text-[#B10C62] ml-1">
