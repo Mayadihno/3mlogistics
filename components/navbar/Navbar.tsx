@@ -5,25 +5,19 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { ICONS } from "@/utils/icons";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { useAppSelector } from "@/redux/hooks/hooks";
 import Cart from "../cart/Cart";
-import { logout } from "@/redux/slice/userSlice";
+import Dropdown from "../dropdown/Dropdown";
 
 const Navbar = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
-  const { user, isAuthenticated } = useAppSelector((state) => state.user);
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const [open, setOpen] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     router.push("/login");
-  };
-
-  const handleLogout = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(logout());
   };
 
   return (
@@ -63,6 +57,13 @@ const Navbar = () => {
                 </Link>
               </div>
             ))}
+            <div className="">
+              {user?.data?.role === "admin" && (
+                <div className="text-[#202C45] hover:text-[#4976d6] font-prociono font-semibold text-xl">
+                  Dashboard
+                </div>
+              )}
+            </div>
             <div className="flex items-center space-x-6">
               <div className="cursor-pointer" onClick={() => setOpen(!open)}>
                 <div className="relative cursor-pointer">
@@ -74,13 +75,7 @@ const Navbar = () => {
               </div>
               {isAuthenticated ? (
                 <>
-                  <h3>MOB</h3>
-                  <Button
-                    onClick={handleLogout}
-                    className=" font-semibold bg-[#202C45] tracking-widest text-white"
-                  >
-                    Logout
-                  </Button>
+                  <Dropdown />
                 </>
               ) : (
                 <Button
