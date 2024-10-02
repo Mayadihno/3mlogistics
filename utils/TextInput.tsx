@@ -102,7 +102,7 @@ const TextInput = ({
                 value={inputValue as string}
               />
             ) : (
-              <div className="relative flex justify-end  items-center">
+              <div className="relative flex justify-end items-center">
                 <input
                   {...register(`${name}`, { required: isRequired })}
                   id={`${name}`}
@@ -148,15 +148,25 @@ const TextInput = ({
                 value={inputValue as string}
               />
             ) : (
-              <input
-                id={`${name}`}
-                name={`${name}`}
-                type={type}
-                placeholder={`${placeholder}`}
-                autoComplete={`${name}`}
-                className={baseClass}
-                value={inputValue as string | number}
-              />
+              <div className="relative flex justify-end items-center">
+                <input
+                  id={`${name}`}
+                  name={`${name}`}
+                  type={inputType}
+                  placeholder={`${placeholder}`}
+                  autoComplete={`${name}`}
+                  className={baseClass}
+                  value={inputValue as string | number}
+                />
+                {isPasswordField && (
+                  <span
+                    className="absolute pr-3 cursor-pointer"
+                    onClick={handleTogglePasswordVisibility}
+                  >
+                    {showPassword ? <ICONS.eyelock /> : suffixIcon}
+                  </span>
+                )}
+              </div>
             )}
           </>
         )}
@@ -167,7 +177,7 @@ const TextInput = ({
         )}
       </div>
       {errors && errors[`${name}`] && (
-        <span style={{ color: "#ef4444" }} className=" text-sm">
+        <span style={{ color: "#ef4444" }} className="text-sm">
           {label} field is required
         </span>
       )}

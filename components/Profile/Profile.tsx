@@ -12,27 +12,27 @@ const Profile = () => {
     <ProtectedRoute>
       <div>
         <div className="flex justify-between">
-          <div className="md:my-10 my-4 md:w-[85%] w-full mx-auto md:px-10 px-2">
+          <div className="md:my-10 my-4 md:w-1/2 w-full mx-auto md:px-10 px-2">
             <Tabs value={active} onValueChange={setActive} className="w-full">
               <TabsList className="grid w-full grid-cols-3 py-3 px-6 font-prociono rounded-[5px] bg-[#27272a74]">
                 <TabsTrigger
                   value="profile"
                   className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
-                     data-[state=active]:bg-black data-[state=active]:text-white"
+                     data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="edit-profile"
                   className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
-                     data-[state=active]:bg-black data-[state=active]:text-white"
+                     data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Edit Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="change-password"
                   className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
-                     data-[state=active]:bg-black data-[state=active]:text-white"
+                     data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Change Password
                 </TabsTrigger>
