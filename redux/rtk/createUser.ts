@@ -33,6 +33,14 @@ const userApi = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+    editProfile: builder.mutation({
+      query: (data) => ({
+        url: "/edit-profile",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -40,6 +48,7 @@ export const {
   useCreateUserMutation,
   useLoginUserMutation,
   useChangePasswordMutation,
+  useEditProfileMutation,
 } = userApi;
 
 export default userApi;

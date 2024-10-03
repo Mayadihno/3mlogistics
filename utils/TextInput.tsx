@@ -111,6 +111,7 @@ const TextInput = ({
                   placeholder={`${placeholder}`}
                   autoComplete={`${name}`}
                   className={baseClass}
+                  disabled={isDisabled}
                   value={inputValue as string | number | Date}
                 />
                 {isPasswordField && (

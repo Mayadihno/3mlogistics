@@ -4,7 +4,7 @@ import { UserModel } from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   const {
     userId,
     newData: { oldPassword, newPassword },
