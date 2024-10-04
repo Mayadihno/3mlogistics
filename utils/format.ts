@@ -13,3 +13,7 @@ const NUMBER_FORMATTER = new Intl.NumberFormat("da-DK");
 export function formatNumber(number: number) {
   return NUMBER_FORMATTER.format(number);
 }
+
+export function convertToSubcurrency(amount: number, factor = 100) {
+  return Math.round(amount * factor);
+}

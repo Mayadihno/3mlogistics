@@ -1,5 +1,11 @@
 import { IoTimeOutline } from "react-icons/io5";
-import { FaPhoneAlt, FaTruck, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaTruck,
+  FaInstagram,
+  FaWhatsapp,
+  FaCheckCircle,
+} from "react-icons/fa";
 import {
   MdMail,
   MdOutlineFacebook,
@@ -40,4 +46,5 @@ export const ICONS = {
   minus: HiOutlineMinusSm,
   eyelock: BsEyeSlash,
   eye: AiOutlineEye,
+  checkCircle: FaCheckCircle,
 };
