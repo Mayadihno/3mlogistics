@@ -91,3 +91,46 @@ export const policyData = [
     icon: ICONS.support,
   },
 ];
+
+export const countriesData = [
+  {
+    id: 1,
+    name: "Denmark",
+  },
+  {
+    id: 2,
+    name: "Switerland",
+  },
+  {
+    id: 3,
+    name: "Sweden",
+  },
+  {
+    id: 4,
+    name: "Norway",
+  },
+  {
+    id: 5,
+    name: "Finland",
+  },
+  {
+    id: 6,
+    name: "France",
+  },
+  {
+    id: 7,
+    name: "Germany",
+  },
+  {
+    id: 8,
+    name: "Austia",
+  },
+  {
+    id: 9,
+    name: "Netherland",
+  },
+  {
+    id: 10,
+    name: "Spain",
+  },
+];

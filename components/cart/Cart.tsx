@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import image from "../../public/cart1.jpg";
 import { useRouter } from "next/navigation";
+import { setItem } from "@/utils/storage";
 
 type CartProp = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,14 +28,12 @@ const Cart = ({ setOpen, open }: CartProp) => {
 
   const handleCheckout = (e: FormEvent) => {
     e.preventDefault();
+    setOpen(!open);
     router.push("/checkout");
   };
 
   return (
-    <div
-      onClick={() => setOpen(!open)}
-      className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-50 flex justify-end"
-    >
+    <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-50 flex justify-end">
       <div className="relative w-[95%] md:w-[30%] h-screen bg-white rounded-sm shadow-sm md:mt-0 mt-[-50px] ">
         <div className="flex justify-between items-center shadow-lg w-full p-3 font-ebgaramond">
           <h2 className=" text-2xl font-semibold">Cart Overview</h2>
