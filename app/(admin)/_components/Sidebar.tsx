@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineFolderAdd, AiOutlineGift } from "react-icons/ai";
+import { MdCategory } from "react-icons/md";
 
 export const links = [
   {
@@ -30,6 +31,11 @@ export const links = [
     name: "Create Product",
     link: "/admin-create-product",
     icons: AiOutlineFolderAdd,
+  },
+  {
+    name: "Create Category",
+    link: "/admin-create-categories",
+    icons: MdCategory,
   },
   {
     name: "Discounts Codes",
