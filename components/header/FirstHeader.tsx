@@ -5,7 +5,7 @@ import React from "react";
 
 const FirstHeader = () => {
   const pathname = usePathname();
-  if (pathname === "/") {
+  if (pathname === "/" || pathname.includes("admin")) {
     return null;
   }
   return (

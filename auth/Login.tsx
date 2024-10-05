@@ -3,14 +3,14 @@ import { useAppDispatch } from "@/redux/hooks/hooks";
 import { useLoginUserMutation } from "@/redux/rtk/createUser";
 import { login, setSessionToken } from "@/redux/slice/userSlice";
 import { ICONS } from "@/utils/icons";
-import { setItem } from "@/utils/storage";
+import { getItem, removeItem, setItem } from "@/utils/storage";
 import SubmitButton from "@/utils/submitButton";
 import TextInput from "@/utils/TextInput";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaBullseye } from "react-icons/fa";
 
 type LoginProp = {
   email: string;
@@ -21,10 +21,11 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginProp>();
+
+  const router = useRouter();
 
   const [loginUser] = useLoginUserMutation();
   const onSubmit = async (data: LoginProp) => {
@@ -36,6 +37,13 @@ const Login = () => {
         setLoading(false);
         setItem("sessionToken", res?.accessToken);
         dispatch(login(res?.data));
+        const redirectToCheckout = await getItem("redirectAfterLogin");
+        if (redirectToCheckout === "checkout") {
+          removeItem("redirectAfterLogin");
+          router.replace("/checkout");
+        } else {
+          router.replace("/home");
+        }
       } else {
         toast.error(res?.message);
         setLoading(false);

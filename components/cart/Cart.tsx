@@ -29,6 +29,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
   const handleCheckout = (e: FormEvent) => {
     e.preventDefault();
     setOpen(!open);
+    setItem("redirectAfterLogin", "checkout");
     router.push("/checkout");
   };
 

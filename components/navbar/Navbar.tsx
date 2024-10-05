@@ -20,7 +20,7 @@ const Navbar = () => {
     router.push("/login");
   };
 
-  if (pathname === "/") {
+  if (pathname === "/" || pathname.includes("admin")) {
     return null;
   }
 
@@ -61,11 +61,18 @@ const Navbar = () => {
                 </Link>
               </div>
             ))}
-            <div className="">
+            <div className="font-prociono font-semibold text-xl">
               {user?.data?.role === "admin" && (
-                <div className="text-[#202C45] hover:text-[#4976d6] font-prociono font-semibold text-xl">
+                <Link
+                  href={"/admin-dashboard"}
+                  className={`${
+                    pathname === "/admin-dashboard"
+                      ? "bg-[#202c45c4] text-[#f7f7f7] px-4 py-2 rounded-lg"
+                      : "text-[#202C45] hover:text-[#4976d6]"
+                  }`}
+                >
                   Dashboard
-                </div>
+                </Link>
               )}
             </div>
             <div className="flex items-center space-x-6">

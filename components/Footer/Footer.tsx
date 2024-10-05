@@ -7,7 +7,7 @@ import React from "react";
 
 const Footer = () => {
   const pathname = usePathname();
-  if (pathname === "/") {
+  if (pathname === "/" || pathname.includes("admin")) {
     return null;
   }
   return (
