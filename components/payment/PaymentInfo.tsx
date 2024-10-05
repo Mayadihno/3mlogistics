@@ -7,6 +7,7 @@ import PaypalPayment from "./PaypalPayment";
 import PaymentCard from "./PaymentCard";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useCreateOrderMutation } from "@/redux/rtk/orderSlice";
 
 const PaymentInfo = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -27,7 +28,7 @@ const PaymentInfo = () => {
   }, []);
   const router = useRouter();
 
-  //   const [createOrder] = useCreateOrderMutation();
+  const [createOrder] = useCreateOrderMutation();
 
   const cashOnDeliveryHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,20 +37,22 @@ const PaymentInfo = () => {
       value: "Not Paid",
     };
 
-    // const result = await createOrder({
-    //   userData: orderData?.usersData,
-    //   cartItems,
-    //   shippingFee: orderData?.selected.price,
-    //   totalPrice: orderData?.totalPrice,
-    //   paymentInfo,
-    // });
-    // if (result?.data) {
-    //   toast.success("Order successfully created");
-    //   localStorage.removeItem("orderItemsdata");
-    //   dispatch(clearCart());
-    // router.push(`/success?orderId=${data.orderId}`);
-    //   router.push("/payment/success");
-    // }
+    const { data } = await createOrder({
+      usersData: orderData?.usersData ?? ({} as AddressProp),
+      cartItems,
+      shippingFee: {
+        name: orderData?.selected?.name ?? "",
+        price: orderData?.selected?.price ?? 0,
+      },
+      totalPrice: orderData?.totalPrice ?? 0,
+      paymentInfo,
+    });
+    if (data) {
+      toast.success(data?.message);
+      localStorage.removeItem("orderItemsdata");
+      dispatch(clearCart());
+      router.push(`/payment/success?orderId=${data.orderId}`);
+    }
   };
 
   return (

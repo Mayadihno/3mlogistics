@@ -1,9 +1,15 @@
+"use client";
 import { navbarData } from "@/utils/data";
 import { ICONS } from "@/utils/icons";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Footer = () => {
+  const pathname = usePathname();
+  if (pathname === "/") {
+    return null;
+  }
   return (
     <div className=" w-full h-fit bg-[#202C45]">
       <div className="grid grid-cols-1 md:grid-cols-3 w-[90%] mx-auto font-ebgaramond py-10 gap-x-16 md:gap-y-0 gap-y-8">

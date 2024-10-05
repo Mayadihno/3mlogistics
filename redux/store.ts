@@ -16,6 +16,7 @@ import { setupListeners } from "@reduxjs/toolkit/query/react";
 import cartSlice from "./slice/cartSlice";
 import userApi from "./rtk/createUser";
 import userSlice from "./slice/userSlice";
+import orderApi from "./rtk/orderSlice";
 const persistConfig = {
   key: "root",
   version: 1,
@@ -28,6 +29,7 @@ const rootReducers = combineReducers({
   cart: cartSlice,
   user: userSlice,
   [userApi.reducerPath]: userApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
@@ -39,7 +41,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware),
+    }).concat(userApi.middleware, orderApi.middleware),
 });
 
 export const persistor = persistStore(store);

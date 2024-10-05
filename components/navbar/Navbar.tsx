@@ -20,6 +20,10 @@ const Navbar = () => {
     router.push("/login");
   };
 
+  if (pathname === "/") {
+    return null;
+  }
+
   return (
     <>
       <div className="bg-white px-3 pt-2 pb-3 sticky top-0 z-50 border-b-2 shadow-md">

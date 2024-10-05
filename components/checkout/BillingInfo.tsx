@@ -21,6 +21,7 @@ export interface AddressProp {
   city: string;
   postalCode: string;
   countries: string;
+  _id: string;
 }
 
 const BillingInfo = () => {
@@ -43,6 +44,7 @@ const BillingInfo = () => {
       lastName: user.data?.lastName,
       email: user.data?.email,
       phoneNumber: user.data?.phoneNumber,
+      _id: user?.data?._id,
     },
   });
 

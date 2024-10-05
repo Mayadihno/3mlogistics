@@ -1,7 +1,13 @@
+"use client";
 import { headerData } from "@/utils/data";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const FirstHeader = () => {
+  const pathname = usePathname();
+  if (pathname === "/") {
+    return null;
+  }
   return (
     <div className="bg-[#202C45] py-4 px-5 font-ebgaramond">
       <div className="flex justify-between items-center">

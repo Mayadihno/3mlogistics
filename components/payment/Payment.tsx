@@ -43,21 +43,21 @@ const Payment = () => {
           <div className="flex justify-between space-y-4 md:space-y-0 md:flex-row flex-col py-2 md:items-center">
             <h2>
               <span className="font-semibold mr-1">Phone Number:</span>
-              <span>{orderData?.usersData.phoneNumber}</span>
+              <span>{orderData?.usersData?.phoneNumber}</span>
             </h2>
             <h2>
               <span className="font-semibold mr-1">Country:</span>
-              <span>{orderData?.usersData.countries}</span>
+              <span>{orderData?.usersData?.countries}</span>
             </h2>
           </div>
           <div className="flex justify-between space-y-4 md:space-y-0 md:flex-row flex-col py-2 md:items-center">
             <h2>
               <span className="font-semibold mr-1"> State:</span>
-              <span>{orderData?.usersData.city}</span>
+              <span>{orderData?.usersData?.city}</span>
             </h2>
             <h2>
               <span className="font-semibold mr-1"> Address:</span>
-              <span>{orderData?.usersData.address}</span>
+              <span>{orderData?.usersData?.address}</span>
             </h2>
           </div>
         </div>
@@ -85,7 +85,7 @@ const Payment = () => {
         <div className="flex justify-between items-center py-2 border-b-2">
           <h2 className="text-lg font-semibold">Shipping Fee:</h2>
           <div className="flex space-x-2 text-sm">
-            <h4>{formatCurrency(orderData?.selected.price ?? 0)}</h4>
+            <h4>{formatCurrency(orderData?.selected?.price ?? 0)}</h4>
           </div>
         </div>
         <div className="py-2 flex justify-between items-center text-lg font-semibold">
