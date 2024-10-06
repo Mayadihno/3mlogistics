@@ -15,8 +15,8 @@ const Layout = async ({ children }: { children: ReactNode }) => {
             <AdminNavbar />
           </div>
           <div
-            className="px-2 xl:max-w-screen-xl 2xl:max-w-screen-2xl sm:max-w-screen-sm
-           md:max-w-screen-md lg:max-w-screen-lg mx-auto max-w-[410px] md:px-4 w-full md:overflow-y-auto"
+            className="xl:max-w-screen-xl 2xl:max-w-screen-2xl sm:max-w-screen-sm
+           md:max-w-screen-md bg-gray-100 lg:max-w-screen-lg mx-auto max-w-[410px] h-full w-full md:overflow-y-auto"
           >
             {children}
           </div>
