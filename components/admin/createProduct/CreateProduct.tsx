@@ -7,6 +7,11 @@ import { MdDelete, MdOutlineErrorOutline } from "react-icons/md";
 import { TbCameraPlus } from "react-icons/tb";
 import { Button } from "@/components/ui/button";
 import { useGetCategoryQuery } from "@/redux/rtk/category";
+import { useCreateProductMutation } from "@/redux/rtk/product";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
 
 interface ProductProp {
   name: string;
@@ -22,6 +27,8 @@ interface ProductProp {
 }
 
 const CreateProduct = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>(
@@ -96,15 +103,59 @@ const CreateProduct = () => {
 
     setFilteredSubcategories(subcategories || []);
   };
+  const [createProduct] = useCreateProductMutation();
+  const userId = user?.data?._id;
+  if (user?.data?.role !== "admin") {
+    return (
+      <div className="flex justify-center items-center">
+        <h1 className="text-2xl font-semibold mb-6 text-gray-700">
+          You are not authorized to access this page
+        </h1>
+      </div>
+    );
+  }
+  const router = useRouter();
   const handleCreateProduct = async (data: ProductProp) => {
+    setLoading(true);
     if (images.length === 0 || images === null) {
       return setErrorMsg("Please select at least one image");
     }
     if (images.length > 0) {
       setErrorMsg("");
     }
-    const formData = { ...data, image: images };
-    console.log(formData);
+    const formdata = { ...data, image: images, userId: userId };
+    const formData = new FormData();
+    formData.append("userId", formdata?.userId ?? "");
+    formData.append("name", formdata.name);
+    formData.append("description", formdata.description);
+    formData.append("price", formdata.price.toString());
+    formData.append("discountPrice", formdata.discountPrice);
+    formData.append("stock", formdata.stock.toString());
+    formData.append("category", formdata.category);
+    formData.append("subCategory", formdata.subCategory);
+    formData.append("weight", formdata.weight);
+    formData.append("brand", formdata.brand);
+    images.forEach((image: { file: string | Blob | File }) => {
+      formData.append("images", image.file);
+    });
+
+    try {
+      const { data: res } = await createProduct(formData);
+      console.log(res);
+      if (res.status === 201) {
+        toast.success(res?.message);
+        reset();
+        setLoading(false);
+        router.push("/admin-product");
+      } else {
+        toast.error(res?.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast.error("Something went wrong");
+    }
   };
   return (
     <div className="flex justify-center items-center">
@@ -290,7 +341,14 @@ const CreateProduct = () => {
           </div>
           <div className="">
             <Button className=" w-full text-lg font-semibold py-5">
-              Create Product
+              {loading ? (
+                <span className="flex space-x-1">
+                  <LoaderCircle className=" animate-spin" size={15} />
+                  Creating product please wait...
+                </span>
+              ) : (
+                "Create Product"
+              )}
             </Button>
           </div>
         </form>

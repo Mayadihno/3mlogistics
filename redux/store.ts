@@ -18,6 +18,7 @@ import userApi from "./rtk/createUser";
 import userSlice from "./slice/userSlice";
 import orderApi from "./rtk/orderSlice";
 import categoryApi from "./rtk/category";
+import productApi from "./rtk/product";
 const persistConfig = {
   key: "root",
   version: 1,
@@ -32,6 +33,7 @@ const rootReducers = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
+  [productApi.reducerPath]: productApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
@@ -43,7 +45,12 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware, orderApi.middleware, categoryApi.middleware),
+    }).concat(
+      userApi.middleware,
+      orderApi.middleware,
+      categoryApi.middleware,
+      productApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);
