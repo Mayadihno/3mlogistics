@@ -342,8 +342,8 @@ const CreateProduct = () => {
           <div className="">
             <Button className=" w-full text-lg font-semibold py-5">
               {loading ? (
-                <span className="flex space-x-1">
-                  <LoaderCircle className=" animate-spin" size={15} />
+                <span className="flex items-center">
+                  <LoaderCircle className=" animate-spin mr-1" size={20} />
                   Creating product please wait...
                 </span>
               ) : (

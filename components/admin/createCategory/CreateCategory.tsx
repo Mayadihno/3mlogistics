@@ -15,7 +15,11 @@ const CreateCategory = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const data = { category, subCategory, description };
+    const data = {
+      category,
+      subCategory: isSubcategory && subCategory ? [subCategory] : [],
+      description,
+    };
     try {
       const { data: res } = await createCategory({ data });
       if (res.status === 201) {
