@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import TextInput from "@/utils/TextInput";
 import React, { useState } from "react";
@@ -46,7 +47,7 @@ const CreateProduct = () => {
   } = useForm<ProductProp>();
 
   const handleDeleteImage = (index: number) => {
-    const updatedImages = images.filter((_: any, i: number) => i !== index);
+    const updatedImages = images.filter((_: unknown, i: number) => i !== index);
     setImages(updatedImages);
   };
 
@@ -95,14 +96,14 @@ const CreateProduct = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCategoryValue = e.target.value;
     setSelectedCategory(selectedCategoryValue);
-    const subcategories = data
+    const subcategories = data.categories
       ?.filter(
         (item: { category: string }) => item.category === selectedCategoryValue
       )
-      .map((item: { subCategory: string }) => item.subCategory);
-
+      .flatMap((item: { subCategory: string[] }) => item.subCategory);
     setFilteredSubcategories(subcategories || []);
   };
+
   const [createProduct] = useCreateProductMutation();
   const userId = user?.data?._id;
   if (user?.data?.role !== "admin") {
@@ -123,6 +124,7 @@ const CreateProduct = () => {
     if (images.length > 0) {
       setErrorMsg("");
     }
+    console.log(data);
     const formdata = { ...data, image: images, userId: userId };
     const formData = new FormData();
     formData.append("userId", formdata?.userId ?? "");
@@ -239,10 +241,12 @@ const CreateProduct = () => {
                 name="category"
                 register={register}
                 type="select"
-                options={data?.map((item: { category: string }) => ({
-                  value: item.category,
-                  displayValue: item.category,
-                }))}
+                options={data?.categories?.map(
+                  (item: { category: string }) => ({
+                    value: item.category,
+                    displayValue: item.category,
+                  })
+                )}
                 onChange={handleCategoryChange}
                 errors={errors}
               />
@@ -250,7 +254,7 @@ const CreateProduct = () => {
             <div className="flex-1 !text-base">
               <TextInput
                 label="Product Subcategory"
-                name="subcategory"
+                name="subCategory"
                 register={register}
                 type="select"
                 options={filteredSubcategories?.map((sub: string) => ({
@@ -269,7 +273,7 @@ const CreateProduct = () => {
                   name="image"
                   control={control}
                   defaultValue={null}
-                  render={({ field }) => (
+                  render={() => (
                     <div className="absolute top-[35%] left-[50%] -translate-x-[45%]">
                       <label
                         htmlFor="file-input"

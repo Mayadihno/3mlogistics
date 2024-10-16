@@ -46,3 +46,19 @@ export const POST = async (req: NextRequest) => {
     return ErrorMessage("An error occurred while processing the request", 500);
   }
 };
+
+export const GET = async () => {
+  try {
+    await dbConnect();
+    const categories = await categoryModel.find();
+    return new NextResponse(
+      JSON.stringify({
+        categories: categories,
+        status: 200,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    return ErrorMessage("An error occurred while processing the request", 500);
+  }
+};
