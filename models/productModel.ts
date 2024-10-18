@@ -43,6 +43,14 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  isAvailable: {
+    type: Boolean,
+    default: true,
+  },
+  sold_out: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

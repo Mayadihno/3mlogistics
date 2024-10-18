@@ -20,6 +20,20 @@ export interface ProductProp {
   description?: string;
 }
 
+export interface ProductProps {
+  _id: string;
+  category: string;
+  name: string;
+  price: number;
+  discountPrice: string;
+  image: string[];
+  brand: string;
+  Weight: string;
+  description?: string;
+  stock: number;
+  createdAt: string;
+}
+
 export const product: ProductProp[] = [
   {
     id: 1,

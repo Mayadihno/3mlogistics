@@ -3,6 +3,7 @@ import { ErrorMessage } from "@/lib/ErrorMessage";
 import { uploadImageToCloudinary } from "@/lib/uploadtocloudinary";
 import { productModel } from "@/models/productModel";
 import { UserModel } from "@/models/userModel";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -68,5 +69,69 @@ export const POST = async (req: NextRequest) => {
   } catch (error) {
     console.log(error);
     return ErrorMessage("Something went wrong", 500);
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url);
+  const search = searchParams.get("productName");
+  const category = searchParams.get("category");
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const limit = parseInt(searchParams.get("limit") || "10", 10);
+
+  console.log(search, category, page, limit);
+
+  const query: any = {};
+
+  if (search) {
+    query.name = { $regex: search, $options: "i" };
+  }
+
+  if (category) {
+    query.category = { $regex: category, $options: "i" };
+  }
+
+  try {
+    dbConnect();
+    const products = await productModel
+      .find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+    const total = await productModel.countDocuments(query);
+    return new NextResponse(
+      JSON.stringify({
+        products,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return ErrorMessage("Something went wrong", 500);
+  }
+};
+
+export const DELETE = async (req: NextRequest) => {
+  const { id } = await req.json();
+  await dbConnect();
+  try {
+    const product = await productModel.findById(id);
+    if (!product) {
+      return ErrorMessage("No product found", 404);
+    }
+    await productModel.findByIdAndDelete(id);
+    revalidatePath("/admin-product");
+
+    return NextResponse.json({
+      message: "Product deleted successfully",
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return ErrorMessage("Failed to delete product", 500);
   }
 };
