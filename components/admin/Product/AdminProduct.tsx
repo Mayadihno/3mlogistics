@@ -6,12 +6,15 @@ import { useGetCategoryQuery } from "@/redux/rtk/category";
 import {
   useDeleteProductMutation,
   useGetProductQuery,
+  useUpdateProdutStatusMutation,
 } from "@/redux/rtk/product";
 import { ProductProps } from "@/utils/productData";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/format";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import { LoaderCircle } from "lucide-react";
 
 const AdminProduct = () => {
   const [open, setOpen] = useState(false);
@@ -19,6 +22,8 @@ const AdminProduct = () => {
   const [productName, setProductName] = useState("");
   const [confirmDelete, setConfirmDelete] = useState({ open: false, id: "" });
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [satusLoading, setSatusLoading] = useState(false);
+  const [statusLoadingProductId, setStatusLoadingProductId] = useState("");
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
@@ -30,13 +35,13 @@ const AdminProduct = () => {
     limit: pageSize.toString(),
   }).toString();
 
-  const { data: product } = useGetProductQuery({
+  const { data: product, isLoading } = useGetProductQuery({
     querys: query,
   });
 
   const router = useRouter();
   const handleEditProduct = (id: string) => {
-    router.push(`/admin/edit-product/${id}`);
+    router.push(`/admin-edit-product/${id}`);
   };
   const [deletProduct] = useDeleteProductMutation();
   const handleDeleteProduct = async () => {
@@ -57,6 +62,29 @@ const AdminProduct = () => {
         toast.error("Failed to delete the product.");
         setDeleteLoading(false);
       }
+    }
+  };
+
+  const [updateProductstatus] = useUpdateProdutStatusMutation();
+  const updateProductStatus = async ({
+    isAvailable,
+    id,
+  }: {
+    isAvailable: boolean;
+    id: string;
+  }) => {
+    try {
+      setStatusLoadingProductId(id);
+      const { data } = await updateProductstatus({ id, status: isAvailable });
+      if (data?.status === 200) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Failed to update product status.");
+    } finally {
+      setStatusLoadingProductId("");
     }
   };
 
@@ -119,10 +147,31 @@ const AdminProduct = () => {
             </div>
           )}
           <div className="">
+            {product?.products?.length === 0 && (
+              <div className=" mt-20 flex flex-col justify-center items-center">
+                <h1 className="text-4xl text-center font-semibold mb-6 text-gray-700">
+                  No product available
+                </h1>
+                <div className="mt-4">
+                  <Link
+                    href={"/admin-create-product"}
+                    className="text-2xl bg-green-400 px-10 py-3 text-white rounded-md text-center"
+                  >
+                    Create product
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {isLoading && (
+              <div className="flex justify-center items-center mt-[120px]">
+                <LoaderCircle size={55} className="animate-spin" />
+              </div>
+            )}
             <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
               {product?.products?.map((item: ProductProps) => (
                 <div className=" border shadow-md rounded-md" key={item._id}>
-                  <div className="w-full h-[250px]">
+                  <div className="w-full h-[250px] py-3 relative">
                     <Image
                       src={item?.image[0]}
                       alt="product-image"
@@ -131,6 +180,17 @@ const AdminProduct = () => {
                       height={400}
                       priority
                     />
+                    <div>
+                      {item.isAvailable === true ? (
+                        <div className="absolute font-semibold text-white bg-green-300 p-2 rounded-md top-2 left-2">
+                          Available
+                        </div>
+                      ) : (
+                        <div className="absolute font-semibold text-white bg-red-500 p-2 rounded-md top-2 left-2">
+                          Unavailable
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="px-2 font-ebgaramond border-t-2">
                     <div className="flex items-center justify-between pt-2">
@@ -148,9 +208,9 @@ const AdminProduct = () => {
                       </h4>
                     </div>
                     <div className="flex justify-between py-1 items-center text-lg font-semibold">
-                      <h3>Category: {item.category}</h3>
-                      <h3>Stock: {item.stock}</h3>
-                      <h3>Sold Out: 0</h3>
+                      <h3>Category: {item?.category}</h3>
+                      <h3>Stock: {item?.stock}</h3>
+                      <h3>Sold Out: {item?.sold_out}</h3>
                     </div>
                     <div className="flex justify-between items-center py-2">
                       <Button
@@ -160,10 +220,24 @@ const AdminProduct = () => {
                         Edit Product
                       </Button>
                       <Button
-                        className="bg-[#202C45] text-white"
-                        onClick={() => setOpen(!open)}
+                        className={`${
+                          item.isAvailable === true
+                            ? " bg-[#000]"
+                            : "bg-green-500"
+                        } text-white`}
+                        onClick={() =>
+                          updateProductStatus({
+                            isAvailable: item?.isAvailable,
+                            id: item._id,
+                          })
+                        }
+                        disabled={statusLoadingProductId === item._id}
                       >
-                        Available
+                        {statusLoadingProductId === item._id && (
+                          <LoaderCircle size={20} className="animate-spin" />
+                        )}
+
+                        {item.isAvailable === true ? "Unavailabe" : "Available"}
                       </Button>
                       <Button
                         className="bg-red-500 hover:bg-red-300 text-white"

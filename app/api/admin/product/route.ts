@@ -135,3 +135,24 @@ export const DELETE = async (req: NextRequest) => {
     return ErrorMessage("Failed to delete product", 500);
   }
 };
+
+export const PATCH = async (req: NextRequest) => {
+  const { id, status } = await req.json();
+  await dbConnect();
+  try {
+    const product = await productModel.findById(id);
+    if (!product) {
+      return ErrorMessage("No product found", 404);
+    }
+    await productModel.findByIdAndUpdate(id, {
+      isAvailable: !status,
+    });
+    revalidatePath("/admin-product");
+    return NextResponse.json({
+      message: "Product updated successfully",
+      status: 200,
+    });
+  } catch (error) {
+    return ErrorMessage("Failed to update product", 500);
+  }
+};

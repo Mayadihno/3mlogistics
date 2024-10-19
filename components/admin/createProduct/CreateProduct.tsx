@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
 
-interface ProductProp {
+export interface ProductProp {
   name: string;
   description: string;
   price: number;
@@ -124,7 +124,6 @@ const CreateProduct = () => {
     if (images.length > 0) {
       setErrorMsg("");
     }
-    console.log(data);
     const formdata = { ...data, image: images, userId: userId };
     const formData = new FormData();
     formData.append("userId", formdata?.userId ?? "");

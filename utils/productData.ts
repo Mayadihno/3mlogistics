@@ -32,6 +32,8 @@ export interface ProductProps {
   description?: string;
   stock: number;
   createdAt: string;
+  isAvailable: boolean;
+  sold_out: number;
 }
 
 export const product: ProductProp[] = [

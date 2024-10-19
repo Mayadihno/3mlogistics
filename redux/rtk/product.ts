@@ -23,6 +23,23 @@ const productApi = createApi({
       providesTags: ["Product"],
     }),
 
+    updateProdutStatus: builder.mutation({
+      query: (arg: { id: string; status: boolean }) => ({
+        url: `/product`,
+        method: "PATCH",
+        body: arg,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
+    getProductById: builder.query({
+      query: (productId: string) => ({
+        url: `/products?id=${productId}`,
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
+
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/product`,
@@ -38,6 +55,8 @@ export const {
   useCreateProductMutation,
   useGetProductQuery,
   useDeleteProductMutation,
+  useUpdateProdutStatusMutation,
+  useGetProductByIdQuery,
 } = productApi;
 
 export default productApi;
