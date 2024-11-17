@@ -1,6 +1,6 @@
 "use client";
 import { formatCurrency } from "@/utils/format";
-import { ProductProp } from "@/utils/productData";
+import { ProductProps } from "@/utils/productData";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -13,22 +13,22 @@ import {
   removeProductFromCart,
 } from "@/redux/slice/cartSlice";
 
-const ProductCard = ({ item }: { item: ProductProp }) => {
+const ProductCard = ({ item }: { item: ProductProps }) => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [existing, setExisting] = useState(false);
 
   useEffect(() => {
-    const isExisting = cartItems.some((cartItem) => cartItem.id === item.id);
+    const isExisting = cartItems.some((cartItem) => cartItem._id === item._id);
     setExisting(isExisting);
-  }, [cartItems, item.id]);
-  const handleAddToCart = (item: ProductProp) => {
+  }, [cartItems, item._id]);
+  const handleAddToCart = (item: ProductProps) => {
     const cartItem: CartItem = {
-      id: item.id,
-      title: item.title,
+      _id: item._id,
+      name: item.name,
       category: item.category,
-      price: item.price,
-      image: item.image,
+      price: parseFloat(item.discountPrice),
+      image: item.image[0],
       qty: 1,
       discountPrice: item.price,
     };
@@ -36,36 +36,37 @@ const ProductCard = ({ item }: { item: ProductProp }) => {
     toast.success("Item added to cart successfully");
   };
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: string) => {
     dispatch(removeProductFromCart(id));
     toast.success("Item remove from cart");
   };
   return (
     <div className="bg-white shadow-lg p-3 cursor-pointer rounded-md font-ebgaramond">
       <Link
-        href={`/product/${item.id}`}
+        href={`/product/${item?._id}`}
         className="hover:shadow-2xl hover:shadow-[#00000089] hover:animate-pulse "
       >
         <div className="h-[250px] w-full">
           <Image
-            src={item.image}
-            alt={item.title}
+            src={item?.image[0]}
+            alt={item?.name}
             width={300}
             height={250}
             className="w-full h-full object-contain"
+            priority
           />
         </div>
         <div className="pt-4 px-1">
           <h3 className="text-base font-semibold text-nowrap line-clamp-1">
-            {item.title}
+            {item.name}
           </h3>
           <div className="border-y py-2">
             <div className="flex items-center space-x-5">
               <h3 className=" text-lg font-bold">
-                {formatCurrency(item.price)}
+                {formatCurrency(parseFloat(item?.discountPrice))}
               </h3>
               <h3 className=" line-through text-base">
-                {formatCurrency(item.price)}
+                {formatCurrency(item?.price)}
               </h3>
             </div>
           </div>
@@ -74,7 +75,7 @@ const ProductCard = ({ item }: { item: ProductProp }) => {
       <div className="w-full text-white font-prociono pt-2">
         {existing ? (
           <Button
-            onClick={() => handleRemove(item.id)}
+            onClick={() => handleRemove(item?._id)}
             className="bg-[#ED017F] text-lg font-bold w-full"
           >
             Remove from cart

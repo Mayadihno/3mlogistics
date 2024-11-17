@@ -1,8 +1,12 @@
-import { product } from "@/utils/productData";
+"use client";
 import React from "react";
 import ProductCard from "./ProductCard";
+import { useGetUserProductsQuery } from "@/redux/rtk/user";
+import { ProductProps } from "@/utils/productData";
 
 const Products = () => {
+  const { data } = useGetUserProductsQuery({});
+  const products = data?.products;
   return (
     <div className="w-full bg-[#f7f7f7]">
       <div className="flex flex-col text-center py-4">
@@ -17,8 +21,8 @@ const Products = () => {
         </div>
       </div>
       <div className=" w-[90%] mx-auto grid grid-cols-1 gap-6 md:grid-cols-4 py-6">
-        {product.map((item) => (
-          <div className="" key={item.id}>
+        {products?.map((item: ProductProps) => (
+          <div className="" key={item._id}>
             <ProductCard item={item} />
           </div>
         ))}

@@ -1,9 +1,10 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { useGetProductByIdQuery } from "@/redux/rtk/product";
 import { addProductToCart, CartItem } from "@/redux/slice/cartSlice";
 import { formatCurrency } from "@/utils/format";
 import { ICONS } from "@/utils/icons";
-import { product, ProductProp } from "@/utils/productData";
+import { ProductProps } from "@/utils/productData";
 import Image from "next/image";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -11,12 +12,12 @@ import toast from "react-hot-toast";
 const ProductDetails = ({ params }: { params: { id: string } }) => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const [count, setCount] = useState(1);
+  const [select, setSelect] = useState(0);
   const productId = params.id;
-  const selectedProduct = product.find(
-    (item: ProductProp) => item.id === Number(productId)
-  );
   const dispatch = useAppDispatch();
-
+  const { data } = useGetProductByIdQuery(productId);
+  console.log(data);
+  const product = data?.product;
   const decrementCount = () => {
     setCount((prev) => (prev === 1 ? 1 : prev - 1));
   };
@@ -24,18 +25,18 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
     setCount((prev) => prev + 1);
   };
 
-  const handleAddToCart = (item: ProductProp) => {
-    const isItemExist = cartItems && cartItems.find((i) => i.id === item.id);
+  const handleAddToCart = (item: ProductProps) => {
+    const isItemExist = cartItems && cartItems.find((i) => i._id === item._id);
     if (isItemExist) {
       toast.error("Item already exist in cart");
       return;
     }
     const cartItem: CartItem = {
-      id: item.id,
-      title: item.title,
+      _id: item._id,
+      name: item.name,
       category: item.category,
-      price: item.price,
-      image: item.image,
+      price: parseFloat(item.discountPrice),
+      image: item.image[0],
       qty: count,
       discountPrice: item.price,
     };
@@ -46,25 +47,51 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
   return (
     <div className="mt-10 mb-5 w-[95%] mx-auto font-ebgaramond">
       <div className="flex space-x-16">
-        <div className="w-[500px] h-[500px]">
-          <Image
-            src={selectedProduct?.image ?? ""}
-            alt={selectedProduct?.title ?? ""}
-            width={300}
-            height={300}
-            className=" w-full h-full object-contain"
-          />
+        <div className="w-[50%]">
+          <div className="md:w-[300px] w-full md:h-[300px] my-5">
+            <Image
+              src={product?.image[select]}
+              alt={product?.name}
+              className="w-full h-full object-contain"
+              width={300}
+              height={300}
+            />
+          </div>
+          <div className="w-full grid grid-cols-3 mb-8">
+            {product &&
+              product.image.map((i: string, index: number) => (
+                <div
+                  key={index}
+                  className={`${
+                    select === index
+                      ? "border flex justify-center items-center mx-2"
+                      : "null"
+                  } cursor-pointer`}
+                >
+                  <div className="w-[100px] h-[100px]">
+                    <Image
+                      src={i}
+                      alt=""
+                      className="overflow-hidden mt-2"
+                      onClick={() => setSelect(index)}
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
-        <div className="pl-4 w-1/2">
-          <h3 className="text-5xl font-semibold">{selectedProduct?.title}</h3>
+        <div className="pl-4 w-[50%]">
+          <h3 className="text-5xl font-semibold">{product?.name}</h3>
           <div className=" py-5 flex justify-between items-center">
             <div className="">
               <div className="flex items-center space-x-5">
                 <h3 className="text-2xl font-bold">
-                  {formatCurrency(selectedProduct?.price ?? 0)}
+                  {formatCurrency(product?.discountPrice ?? 0)}
                 </h3>
                 <h3 className=" line-through text-base">
-                  {formatCurrency(selectedProduct?.price ?? 0)}
+                  {formatCurrency(product?.price ?? 0)}
                 </h3>
               </div>
             </div>
@@ -72,36 +99,25 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
               <h3>
                 <span className="text-xl font-semibold">Category: </span>
                 <span className=" text-base font-medium">
-                  {selectedProduct?.category}
+                  {product?.category}
                 </span>
+              </h3>
+              <h3>
+                <span className="text-xl font-semibold">Weight: </span>
+                <span className=" text-base font-medium">
+                  {product?.weight}
+                </span>
+              </h3>
+              <h3>
+                <span className="text-xl font-semibold">Brand: </span>
+                <span className=" text-base font-medium">{product?.brand}</span>
               </h3>
             </div>
           </div>
           <div className="">
             <h3 className=" text-3xl font-semibold">Product Decsription</h3>
             <p>
-              <p className="text-base leading-8">
-                Dress Pants Elevate your professional style with our sleek and
-                sophisticated Dress Pants. Tailored to perfection, these
-                trousers are designed to make a statement in any business
-                setting. Crafted from high-quality fabrics such as wool, cotton,
-                or polyester blends, they offer a comfortable fit and a crisp,
-                polished look. Features: - Slim or classic fit options to suit
-                your personal style - Flat front or pleated design for a
-                versatile look - Zip fly and button closure for a secure fit -
-                Two side pockets and one or two back pockets for convenient
-                storage - Cuffed or plain hem finish - Available in a range of
-                neutral colors, including black, navy, gray, beige, and more
-                Perfect for: - Business meetings and presentations - Formal
-                events and networking receptions - Job interviews and career
-                advancement opportunities - Everyday office wear for
-                professionals and executives Style Tips: - Pair with a dress
-                shirt, tie, and blazer for a sharp, put-together look - Mix and
-                match with different dress shoes and belts to add personality to
-                your outfit - Consider a slim-fit style for a modern,
-                fashion-forward look Look sharp, feel confident, and take your
-                professional style to the next level with our Dress Pants!
-              </p>
+              <p className="text-base leading-8">{product?.description}</p>
             </p>
           </div>
           <div className="mt-10 mb-6">
@@ -127,7 +143,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
               </div>
               <div
                 className="button font-prociono"
-                onClick={() => handleAddToCart(selectedProduct!)}
+                onClick={() => handleAddToCart(data!)}
               >
                 <button className="bg-[#202C45] text-white py-2 px-4 rounded flex items-center">
                   <ICONS.addToCart size={20} className="mr-2" />

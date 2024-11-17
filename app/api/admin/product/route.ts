@@ -154,5 +154,6 @@ export const PATCH = async (req: NextRequest) => {
     });
   } catch (error) {
     return ErrorMessage("Failed to update product", 500);
+    console.log(error);
   }
 };

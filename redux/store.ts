@@ -19,6 +19,7 @@ import userSlice from "./slice/userSlice";
 import orderApi from "./rtk/orderSlice";
 import categoryApi from "./rtk/category";
 import productApi from "./rtk/product";
+import userProductApi from "./rtk/user";
 const persistConfig = {
   key: "root",
   version: 1,
@@ -34,6 +35,7 @@ const rootReducers = combineReducers({
   [orderApi.reducerPath]: orderApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [userProductApi.reducerPath]: userProductApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
@@ -49,7 +51,8 @@ export const store = configureStore({
       userApi.middleware,
       orderApi.middleware,
       categoryApi.middleware,
-      productApi.middleware
+      productApi.middleware,
+      userProductApi.middleware
     ),
 });
 

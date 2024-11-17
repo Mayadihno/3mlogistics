@@ -40,6 +40,14 @@ const productApi = createApi({
       providesTags: ["Product"],
     }),
 
+    getAllProduct: builder.query({
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
+
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/product`,

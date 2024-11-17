@@ -49,7 +49,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
           <div className="">
             <div className="p-3 font-ebgaramond overflow-y-scroll h-[530px]">
               {cartItems?.map((item) => (
-                <div key={item?.id} className="">
+                <div key={item?._id} className="">
                   <SingleCart item={item} />
                 </div>
               ))}
@@ -94,18 +94,20 @@ const SingleCart = ({ item }: { item: CartItem }) => {
   const [value, setValue] = useState(item?.qty);
   const dispatch = useAppDispatch();
 
+  console.log(item);
+
   const increment = (item: CartItem) => {
     const newQty = value + 1;
     setValue(newQty);
-    dispatch(updateCartItemQty({ id: item?.id, qty: newQty }));
+    dispatch(updateCartItemQty({ id: item?._id, qty: newQty }));
   };
 
   const decrement = () => {
     const newQty = value === 1 ? 1 : value - 1;
     setValue(newQty);
-    dispatch(updateCartItemQty({ id: item?.id, qty: newQty }));
+    dispatch(updateCartItemQty({ id: item?._id, qty: newQty }));
   };
-  const handleRemoveFromCart = (id: number) => {
+  const handleRemoveFromCart = (id: string) => {
     toast.success("Item successfully removed from cart");
     dispatch(removeProductFromCart(id));
   };
@@ -115,18 +117,18 @@ const SingleCart = ({ item }: { item: CartItem }) => {
       <div className="flex space-x-5">
         <div className="w-[70px] h-[70px]">
           <Image
-            src={item.image}
-            alt={item.title}
+            src={item?.image}
+            alt={item?.name}
             width={70}
             height={70}
             className="w-full h-full object-contain"
           />
         </div>
         <div className="flex flex-col w-full">
-          <h3 className="text-lg line-clamp-1 font-semibold">{item.title}</h3>
+          <h3 className="text-lg line-clamp-1 font-semibold">{item.name}</h3>
           <div className="flex justify-between items-center pt-5">
             <h4 className="text-base font-medium">
-              {formatCurrency(item.discountPrice ?? 0)} *{" "}
+              {formatCurrency(item.price ?? 0)} *{" "}
               {formatNumber(item.qty)}
             </h4>
             <h2 className="text-lg font-medium flex justify-end">
@@ -138,7 +140,7 @@ const SingleCart = ({ item }: { item: CartItem }) => {
       <div className="flex justify-between items-center px-4 pt-4 pb-2">
         <div
           className="flex items-center font-ebgaramond cursor-pointer"
-          onClick={() => handleRemoveFromCart(item?.id)}
+          onClick={() => handleRemoveFromCart(item?._id)}
         >
           <ICONS.delete size={20} className="text-[#B10C62]" />
           <span className="text-[#B10C62] text-lg uppercase ml-2">Remove</span>
