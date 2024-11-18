@@ -20,9 +20,9 @@ export const POST = async (req: NextRequest) => {
       }),
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error processing payment:", error);
-    return new NextResponse(`Error processing request: ${error.message}`, {
+    return new NextResponse(`Error processing request: ${error}`, {
       status: 500,
     });
   }

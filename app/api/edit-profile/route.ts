@@ -31,7 +31,7 @@ export const PATCH = async (req: NextRequest) => {
         new: true,
       }
     );
-    const { password: savedPassword, ...usersData } = userData.toObject();
+    const { ...usersData } = userData.toObject();
     return NextResponse.json({
       message: "Profile updated successfully",
       data: usersData,

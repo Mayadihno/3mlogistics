@@ -77,7 +77,7 @@ const AdminOrderDetails = ({ orderId }: { orderId: string }) => {
       {/* order items */}
       <div className="grid grid-cols-3 gap-6">
         {data &&
-          data?.order.cartItems?.map((item: any) => {
+          data?.order.cartItems?.map((item: CartItem) => {
             return (
               <div key={item._id} className="w-full p-3 mb-5 border">
                 <div className="flex justify-center items-center">

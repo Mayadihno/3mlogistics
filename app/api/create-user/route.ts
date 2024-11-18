@@ -4,7 +4,7 @@ import { UserModel } from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     const { userData } = await req.json();
 
@@ -41,7 +41,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     } else {
       return ErrorMessage("User Registration Failed", 401);
     }
-  } catch (error: any) {
-    return ErrorMessage(error.message || "Internal Server Error", 500);
+  } catch (error) {
+    const errorMessage = (error as Error).message || "Internal Server Error";
+    return ErrorMessage(errorMessage, 500);
   }
 };

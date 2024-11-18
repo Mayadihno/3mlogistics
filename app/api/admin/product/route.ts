@@ -40,9 +40,14 @@ export const POST = async (req: NextRequest) => {
     if (images.length > 0) {
       try {
         imageUrl = await uploadImageToCloudinary(images, folder);
-      } catch (uploadError: any) {
-        console.error(uploadError.message);
-        return ErrorMessage(uploadError.message, 500);
+      } catch (uploadError: unknown) {
+        if (uploadError instanceof Error) {
+          console.error(uploadError.message);
+          return ErrorMessage(uploadError.message, 500);
+        } else {
+          console.error(uploadError);
+          return ErrorMessage("An unknown error occurred", 500);
+        }
       }
     }
 
@@ -80,8 +85,15 @@ export const GET = async (req: NextRequest) => {
   const limit = parseInt(searchParams.get("limit") || "10", 10);
 
   console.log(search, category, page, limit);
+  interface Query {
+    name: { $regex: string; $options: string };
+    category: { $regex: string; $options: string };
+  }
 
-  const query: any = {};
+  const query: Query = {
+    name: { $regex: "", $options: "" },
+    category: { $regex: "", $options: "" },
+  };
 
   if (search) {
     query.name = { $regex: search, $options: "i" };
@@ -153,7 +165,7 @@ export const PATCH = async (req: NextRequest) => {
       status: 200,
     });
   } catch (error) {
-    return ErrorMessage("Failed to update product", 500);
     console.log(error);
+    return ErrorMessage("Failed to update product", 500);
   }
 };

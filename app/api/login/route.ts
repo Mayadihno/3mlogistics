@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { generateAccessToken, generateRefreshToken } from "@/lib/generateJWT";
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   const {
     data: { email, password },
   } = await req.json();
@@ -21,7 +21,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     if (!isPasswordValid) {
       return ErrorMessage("Incorrect Password", 401);
     }
-    const { password: savedPassword, ...usersData } = user.toObject();
+    const { ...usersData } = user.toObject();
 
     const accessToken = generateAccessToken(usersData);
     const refreshToken = generateRefreshToken(usersData);
@@ -48,6 +48,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
     return response;
   } catch (error) {
+    console.log(error);
     return ErrorMessage("Internal server error", 500);
   }
 };

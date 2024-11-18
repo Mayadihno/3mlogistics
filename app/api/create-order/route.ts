@@ -29,6 +29,7 @@ export const POST = async (request: NextRequest) => {
       })
     );
   } catch (error) {
+    console.log(error)
     return ErrorMessage("Internal server error. please try again", 500);
   }
 };

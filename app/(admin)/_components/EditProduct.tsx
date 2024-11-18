@@ -16,7 +16,6 @@ const EditProduct = ({ productId }: { productId: string }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
   } = useForm<ProductProps>();
   useEffect(() => {
@@ -28,10 +27,11 @@ const EditProduct = ({ productId }: { productId: string }) => {
       setValue("discountPrice", data?.product?.discountPrice || 0);
       setValue("Weight", data?.product?.weight);
     }
-  }, [data?.product, setValue]);
+  }, [data, setValue]);
 
   const handleUpdateProduct = (data: ProductProps) => {
     console.log(data);
+    setloading(true);
   };
 
   if (isLoading) {

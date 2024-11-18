@@ -13,12 +13,20 @@ export const GET = async (req: NextRequest) => {
   try {
     await dbConnect();
 
-    const filters = {} as any;
+    interface Query {
+      name: { $regex: string; $options: string };
+      category: { $regex: string; $options: string };
+    }
+
+    const filters: Query = {
+      name: { $regex: "", $options: "" },
+      category: { $regex: "", $options: "" },
+    };
 
     if (name) filters.name = { $regex: name, $options: "i" };
 
     if (category) {
-      filters["category.value"] = { $regex: category, $options: "i" };
+      filters["category"] = { $regex: category, $options: "i" };
     }
 
     const skip = (page - 1) * limit;

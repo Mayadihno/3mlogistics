@@ -3,9 +3,10 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import { useGetUserProductsQuery } from "@/redux/rtk/user";
 import { ProductProps } from "@/utils/productData";
+import ProductSkeleton from "../skeletom/ProductSkeleton";
 
 const Products = () => {
-  const { data } = useGetUserProductsQuery({});
+  const { data, isLoading } = useGetUserProductsQuery({});
   const products = data?.products;
   return (
     <div className="w-full bg-[#f7f7f7]">
@@ -20,12 +21,20 @@ const Products = () => {
           <div className="w-[180px] h-[10px] rounded-full bg-[#202C45]"></div>
         </div>
       </div>
-      <div className=" w-[90%] mx-auto grid grid-cols-1 gap-6 md:grid-cols-4 py-6">
-        {products?.map((item: ProductProps) => (
-          <div className="" key={item._id}>
-            <ProductCard item={item} />
+      <div className="">
+        {isLoading ? (
+          <div className="m-5">
+            <ProductSkeleton count={4} />
           </div>
-        ))}
+        ) : (
+          <div className=" w-[90%] mx-auto grid grid-cols-1 gap-6 md:grid-cols-4 py-6">
+            {products?.map((item: ProductProps) => (
+              <div className="" key={item._id}>
+                <ProductCard item={item} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

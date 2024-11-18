@@ -27,6 +27,7 @@ export const PATCH = async (req: NextRequest) => {
       }
     );
   } catch (error) {
+    console.log(error);
     return ErrorMessage("Something went wrong", 500);
   }
 };
