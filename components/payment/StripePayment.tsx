@@ -8,14 +8,11 @@ import {
   StripePaymentElementOptions,
   PaymentIntentResult,
 } from "@stripe/stripe-js";
-import { useAppSelector } from "@/redux/hooks/hooks";
 import { CartItem } from "@/redux/slice/cartSlice";
 import { AddressProp } from "../checkout/BillingInfo";
-import { useRouter } from "next/navigation";
 import { convertToSubcurrency, formatCurrency } from "@/utils/format";
 import toast from "react-hot-toast";
 const StripePayment = ({ amount }: { amount: number }) => {
-  const { cartItems } = useAppSelector((state) => state.cart);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +21,7 @@ const StripePayment = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [orderData, setOrderData] = useState<{
+  const [, setOrderData] = useState<{
     usersData: AddressProp;
     cartItems: CartItem[];
     totalPrice: number;
@@ -37,7 +34,6 @@ const StripePayment = ({ amount }: { amount: number }) => {
     );
     setOrderData(storedOrderData);
   }, []);
-  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {

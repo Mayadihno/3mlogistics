@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { setItem } from "@/utils/storage";
-import CheckoutSteps from "../checkoutStep/CheckoutStep";
+
 
 export interface AddressProp {
   firstName: string;
@@ -193,9 +193,9 @@ const BillingInfo = () => {
               {cartItems.map((item) => (
                 <div
                   className="flex justify-between items-center px-3 py-1"
-                  key={item.id}
+                  key={item._id}
                 >
-                  <p className="text-sm font-medium">{item.title}</p>
+                  <p className="text-sm font-medium">{item.name}</p>
                   <div className="flex text-sm font-medium">
                     <p>{formatCurrency(item.price)}</p> * <p>{item.qty}</p>
                   </div>

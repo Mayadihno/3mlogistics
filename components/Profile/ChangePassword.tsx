@@ -35,7 +35,7 @@ const ChangePassword = () => {
       return;
     }
     try {
-      const { confirmPassword, ...newData } = data;
+      const { ...newData } = data;
       const { data: res } = await changePassword({ newData, userId });
       if (res.status === 200) {
         toast.success(res?.message);

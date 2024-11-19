@@ -26,7 +26,7 @@ const PaypalPayment = () => {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const createOrder = (data: any, actions: any) => {
+  const createOrder = (actions: any) => {
     return actions.order
       .create({
         purchase_units: [

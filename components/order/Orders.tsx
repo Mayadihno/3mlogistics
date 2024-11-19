@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { ICONS } from "@/utils/icons";
 import { formatCurrency } from "@/utils/format";
+import { CartItem } from "@/redux/slice/cartSlice";
 const Orders = () => {
   const { user } = useAppSelector((state) => state.user);
   const id = user.data?._id;
@@ -67,7 +68,7 @@ const Orders = () => {
   const rows = useMemo(
     () =>
       orders?.map(
-        (item: { _id: string; cartItems: any[]; status: string }) => ({
+        (item: { _id: string; cartItems: CartItem[]; status: string }) => ({
           id: item._id,
           itemsQty: item.cartItems.length,
           total: formatCurrency(

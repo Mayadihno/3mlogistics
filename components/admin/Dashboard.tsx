@@ -106,20 +106,27 @@ const Dashboard = () => {
 
   const rows =
     data?.orders
-      ?.map((item: any) => {
-        const total = item.cartItems.reduce(
-          (acc: number, cartItem: CartItem) =>
-            acc + cartItem.price * cartItem.qty,
-          0
-        );
-        return {
-          id: item._id,
-          itemsQty: item.cartItems.length,
-          total: formatCurrency(total),
-          status: item.status,
-          payment: item.paymentInfo.type,
-        };
-      })
+      ?.map(
+        (item: {
+          cartItems: CartItem[];
+          _id: string;
+          status: string;
+          paymentInfo: { type: string };
+        }) => {
+          const total = item.cartItems.reduce(
+            (acc: number, cartItem: CartItem) =>
+              acc + cartItem.price * cartItem.qty,
+            0
+          );
+          return {
+            id: item._id,
+            itemsQty: item.cartItems.length,
+            total: formatCurrency(total),
+            status: item.status,
+            payment: item.paymentInfo.type,
+          };
+        }
+      )
       .slice(0, 5) || [];
   const totalOrders = data?.orders.length;
   const totalProduct = product?.products?.length;

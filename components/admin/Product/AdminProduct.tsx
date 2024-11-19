@@ -22,7 +22,6 @@ const AdminProduct = () => {
   const [productName, setProductName] = useState("");
   const [confirmDelete, setConfirmDelete] = useState({ open: false, id: "" });
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [satusLoading, setSatusLoading] = useState(false);
   const [statusLoadingProductId, setStatusLoadingProductId] = useState("");
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
@@ -82,6 +81,7 @@ const AdminProduct = () => {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to update product status.");
     } finally {
       setStatusLoadingProductId("");
@@ -108,7 +108,9 @@ const AdminProduct = () => {
                   name="productName"
                   type="text"
                   value={productName}
-                  onChange={(e: any) => setProductName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setProductName(e.target.value)
+                  }
                   className="w-full"
                 />
               </div>
@@ -124,7 +126,9 @@ const AdminProduct = () => {
                     })
                   )}
                   value={category}
-                  onChange={(e: any) => setCategory(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setCategory(e.target.value)
+                  }
                   className="w-full"
                 />
               </div>
@@ -140,7 +144,9 @@ const AdminProduct = () => {
                     })
                   )}
                   value={category}
-                  onChange={(e: any) => setCategory(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setCategory(e.target.value)
+                  }
                   className="w-full"
                 />
               </div>

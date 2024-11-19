@@ -13,6 +13,7 @@ import { useAppSelector } from "@/redux/hooks/hooks";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
+import Image from "next/image";
 
 export interface ProductProp {
   name: string;
@@ -35,6 +36,7 @@ const CreateProduct = () => {
   const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>(
     []
   );
+  console.log(selectedCategory);
   const [errorMsg, setErrorMsg] = useState("");
   const {
     register,
@@ -323,22 +325,26 @@ const CreateProduct = () => {
                 <h3 className="text-lg font-medium my-3">Product Images</h3>
               )}
               <div className="grid gap-y-3 gap-x-3 grid-cols-5 mb-2">
-                {images.map((image: any, index: number) => (
-                  <div key={index} className="relative w-[80px] h-[80px] ">
-                    <img
-                      src={image.preview}
-                      alt={`Cover image ${index + 1}`}
-                      className="w-full h-full rounded-[5px] object-contain"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleDeleteImage(index)}
-                      className="absolute top-0 right-0 text-red-500 bg-white rounded-full p-1"
-                    >
-                      <MdDelete size={"20px"} />
-                    </button>
-                  </div>
-                ))}
+                {images.map(
+                  (image: { file: File; preview: string }, index: number) => (
+                    <div key={index} className="relative w-[80px] h-[80px] ">
+                      <Image
+                        src={image.preview}
+                        alt={`Cover image ${index + 1}`}
+                        width={80}
+                        height={80}
+                        className="w-full h-full rounded-[5px] object-contain"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteImage(index)}
+                        className="absolute top-0 right-0 text-red-500 bg-white rounded-full p-1"
+                      >
+                        <MdDelete size={"20px"} />
+                      </button>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
   const [comment, setComment] = useState("");
   const router = useRouter();
   const totalPrice = order?.cartItems?.reduce(
-    (a: any, b: any) => a + b.price * b.qty,
+    (a: number, b: CartItem) => a + b.price * b.qty,
     0
   );
 
@@ -56,10 +56,10 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
       <br />
       <br />
       <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-        {order?.cartItems?.map((item: any) => (
+        {order?.cartItems?.map((item: CartItem) => (
           <div
             className="flex flex-col p-3 border items-center justify-center space-y-2"
-            key={item.id}
+            key={item._id}
           >
             <div className="flex justify-center items-center">
               <Image

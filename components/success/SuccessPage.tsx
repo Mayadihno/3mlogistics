@@ -18,7 +18,7 @@ const SuccessPage = () => {
         </h1>
         <p className="mt-4 text-gray-600">
           Your order has been placed successfully. We are processing your order
-          and will notify you once it's shipped.
+          and will notify you once it&apos;s shipped.
         </p>
 
         {orderId && (

@@ -4,16 +4,15 @@ import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { formatCurrency } from "@/utils/format";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 
-const OrderSummary = ({ handlePayment }: any) => {
+const OrderSummary = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selected, setSelected] = useState<{
     name: string;
     price: number;
   } | null>(null);
   const subtotal = cartItems.reduce((a, b) => a + b.price * b.qty, 0);
-  const router = useRouter();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.id;
     const price = parseFloat(e.target.getAttribute("data-price") || "0");
@@ -29,9 +28,9 @@ const OrderSummary = ({ handlePayment }: any) => {
           {cartItems.map((item) => (
             <div
               className="flex justify-between items-center px-3 py-1"
-              key={item.id}
+              key={item._id}
             >
-              <p className="text-sm font-medium">{item.title}</p>
+              <p className="text-sm font-medium">{item.name}</p>
               <div className="flex text-sm font-medium">
                 <p>{formatCurrency(item.price)}</p> * <p>{item.qty}</p>
               </div>
