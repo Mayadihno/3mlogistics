@@ -15,7 +15,7 @@ function runMiddleware(
   fn: Function
 ) {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
+    fn(req, res, (result: unknown) => {
       if (result instanceof Error) {
         return reject(result);
       }
