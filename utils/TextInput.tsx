@@ -1,13 +1,14 @@
 "use client";
 import { ICONS } from "@/utils/icons";
 import React, { useState } from "react";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type TextInputProps = {
   label?: string;
-  register?: any;
+  register?: UseFormRegister<any>;
   name?: string;
   type?: string;
-  errors?: any;
+  errors?: FieldErrors<any>;
   placeholder?: string;
   className?: string;
   prefixIcon?: React.ReactNode;
@@ -15,7 +16,7 @@ type TextInputProps = {
   options?: { value: string; displayValue: string }[];
   value?: string | number | Date;
   onChange?: any;
-  isDisabled?: any;
+  isDisabled?: boolean;
   isRequired?: boolean;
 };
 
@@ -112,7 +113,7 @@ const TextInput = ({
                   autoComplete={`${name}`}
                   className={baseClass}
                   disabled={isDisabled}
-                  value={inputValue as string | number | Date}
+                  value={inputValue as string | number}
                 />
                 {isPasswordField && (
                   <span

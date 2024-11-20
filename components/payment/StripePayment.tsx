@@ -58,7 +58,7 @@ const StripePayment = ({ amount }: { amount: number }) => {
         }
       });
     }
-  }, []);
+  }, [clientSecret, stripe]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -10,7 +10,7 @@ cloudinary.config({
 // Define an interface for the Cloudinary upload result
 interface CloudinaryUploadResult {
   secure_url: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 // Function to upload image to Cloudinary

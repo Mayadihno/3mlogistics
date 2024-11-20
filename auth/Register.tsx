@@ -39,7 +39,7 @@ const Register = () => {
         return;
       }
       setLoading(true);
-      const { confirmPassword, ...userData } = data;
+      const { ...userData } = data;
       const { data: res } = await createUser({ userData });
       if (res.status === 201) {
         setLoading(false);
@@ -52,6 +52,7 @@ const Register = () => {
         setLoading(false);
       }
     } catch (error) {
+      console.log(error);
       setLoading(false);
       setGeneralErrorMesg("Internal Server error try again later");
     }

@@ -2,6 +2,7 @@ export const setItem = async (key: string, value: string) => {
   try {
     localStorage.setItem(key, value);
   } catch (error) {
+    console.log(error);
     // fail silently for now
   }
 };
@@ -11,6 +12,7 @@ export const getItem = async (key: string, initial?: string) => {
     const value = localStorage.getItem(key);
     return value ?? initial;
   } catch (error) {
+    console.log(error);
     // fail silently for now
   }
 };
@@ -19,6 +21,7 @@ export const removeItem = async (key: string) => {
   try {
     localStorage.removeItem(key);
   } catch (error) {
+    console.log(error);
     // fail silently for now
   }
 };

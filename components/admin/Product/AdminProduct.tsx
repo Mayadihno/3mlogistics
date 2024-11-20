@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { LoaderCircle } from "lucide-react";
+import Paginate from "@/components/paginate/Paginate";
 
 const AdminProduct = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ const AdminProduct = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [statusLoadingProductId, setStatusLoadingProductId] = useState("");
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize] = useState(10);
 
   const { data } = useGetCategoryQuery({});
   const query = new URLSearchParams({
@@ -168,6 +169,14 @@ const AdminProduct = () => {
                 </div>
               </div>
             )}
+
+            <div className="flex justify-end items-center my-8">
+              <Paginate
+                setPage={setPage}
+                totalPages={data.totalPages}
+                page={page}
+              />
+            </div>
 
             {isLoading && (
               <div className="flex justify-center items-center mt-[120px]">

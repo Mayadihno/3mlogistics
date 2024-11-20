@@ -5,8 +5,11 @@ interface DecodedToken {
   _id: string;
   email: string;
 }
-
-export async function veryUser(req: NextRequest) {
+interface CustomRequest extends NextRequest {
+  email?: string;
+  _id?: string;
+}
+export async function veryUser(req: CustomRequest) {
   const accessToken = req.cookies.get("sessionToken")?.value;
 
   if (!accessToken) {
@@ -22,8 +25,11 @@ export async function veryUser(req: NextRequest) {
         accessToken,
         process.env.JWT_SECRET_KEY as string
       ) as DecodedToken;
-      (req as any).email = decoded.email;
-      (req as any)._id = decoded._id;
+
+      // Directly assign to req with proper type
+      req.email = decoded.email;
+      req._id = decoded._id;
+
       return NextResponse.next();
     } catch (err) {
       console.error("Token verification error:", err);

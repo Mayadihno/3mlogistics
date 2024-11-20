@@ -1,7 +1,7 @@
 "use client";
 import { useAppDispatch } from "@/redux/hooks/hooks";
 import { useLoginUserMutation } from "@/redux/rtk/createUser";
-import { login, setSessionToken } from "@/redux/slice/userSlice";
+import { login } from "@/redux/slice/userSlice";
 import { ICONS } from "@/utils/icons";
 import { getItem, removeItem, setItem } from "@/utils/storage";
 import SubmitButton from "@/utils/submitButton";
@@ -94,7 +94,7 @@ const Login = () => {
         </form>
         <div className="px-4 py-2 font-medium font-urbanist text-base">
           <h4>
-            Don't have an account?
+            Don&apos;t have an account?
             <Link href={"/register"} className="text-[#B10C62] ml-1">
               Signup
             </Link>

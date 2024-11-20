@@ -6,6 +6,12 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { ICONS } from "@/utils/icons";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  OnApproveData,
+  OnApproveActions,
+  CreateOrderActions,
+  CreateOrderData,
+} from "@paypal/paypal-js";
 
 const PaypalPayment = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -26,7 +32,10 @@ const PaypalPayment = () => {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const createOrder = (actions: any) => {
+  const createOrder = (
+    data: CreateOrderData,
+    actions: CreateOrderActions
+  ): Promise<string> => {
     return actions.order
       .create({
         purchase_units: [
@@ -34,26 +43,27 @@ const PaypalPayment = () => {
             description: "ulmfood sales payment",
             amount: {
               currency_code: "DKK",
-              value: orderData?.totalPrice,
+              value: orderData?.totalPrice?.toFixed(2) || "0.00", // Ensure a valid string format
             },
           },
         ],
         application_context: {
           shipping_preference: "NO_SHIPPING",
         },
+        intent: "CAPTURE",
       })
-      .then((orderID: any) => {
+      .then((orderID: string) => {
         return orderID;
       });
   };
 
-  const onApprove = async (data: any, actions: any) => {
+  const onApprove = async (data: OnApproveData, actions: OnApproveActions) => {
     try {
-      const details = await actions.order.capture();
-      const { payer } = details;
+      const details = await actions?.order?.capture();
+      const payerName = details?.payment_source?.card?.name;
 
-      if (payer) {
-        await paypalPaymentHandler(payer);
+      if (payerName) {
+        await paypalPaymentHandler(payerName || "Unknown Payer");
       }
     } catch (error) {
       console.error("Error capturing PayPal payment:", error);
@@ -61,12 +71,14 @@ const PaypalPayment = () => {
     }
   };
 
-  const paypalPaymentHandler = async (payerInfo: any) => {
+  const paypalPaymentHandler = async (payerInfo: string) => {
     try {
       const paymentInfo = {
         type: "Paypal",
         value: "Paid",
       };
+
+      console.log(payerInfo);
 
       const response = await fetch("/api/create-order", {
         method: "POST",
