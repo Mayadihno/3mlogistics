@@ -1,11 +1,16 @@
 "use client";
-import { product, ProductProp } from "@/utils/productData";
+import { product, ProductProp, ProductProps } from "@/utils/productData";
 import React from "react";
 import ProductCard from "./ProductCard";
+import { useGetUserProductsQuery } from "@/redux/rtk/user";
 
 const RelatedProduct = ({ params }: { params: { id: string } }) => {
   const productId = params.id;
-  const currentProduct = product.find((item) => item.id === Number(productId));
+  const { data, isLoading } = useGetUserProductsQuery({});
+  const products = data?.products;
+  const currentProduct = products.find(
+    (item: ProductProps) => item._id === productId
+  );
 
   if (!currentProduct) {
     return (
@@ -15,9 +20,10 @@ const RelatedProduct = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const relatedProducts = product.filter(
-    (item) =>
-      item.category === currentProduct.category && item.id !== currentProduct.id
+  const relatedProducts = products.filter(
+    (item: ProductProps) =>
+      item.category === currentProduct.category &&
+      item._id !== currentProduct._id
   );
 
   return (
@@ -27,8 +33,8 @@ const RelatedProduct = ({ params }: { params: { id: string } }) => {
       </h1>
       <div className="grid md:grid-cols-4 grid-cols-1 gap-y-5 gap-x-7">
         {relatedProducts &&
-          relatedProducts.map((item: ProductProp) => (
-            <div className="" key={item.id}>
+          relatedProducts.map((item: ProductProps) => (
+            <div className="" key={item._id}>
               <ProductCard item={item} />
             </div>
           ))}
