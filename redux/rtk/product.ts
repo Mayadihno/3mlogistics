@@ -3,13 +3,19 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/admin",
+    baseUrl:
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_PROD_API_URL
+        : typeof window !== "undefined" &&
+          window.location.hostname === "localhost"
+        ? process.env.NEXT_PUBLIC_API_URL
+        : process.env.NEXT_PUBLIC_API_BASE_URL_MOBILE,
   }),
   tagTypes: ["Product"],
   endpoints: (builder) => ({
     createProduct: builder.mutation({
       query: (formData) => ({
-        url: "/product",
+        url: "admin/product",
         method: "POST",
         body: formData,
       }),
@@ -17,7 +23,7 @@ const productApi = createApi({
     }),
     getProduct: builder.query({
       query: (arg: { querys: string }) => ({
-        url: `/product?&${arg.querys}`,
+        url: `admin/product?&${arg.querys}`,
         method: "GET",
       }),
       providesTags: ["Product"],
@@ -25,7 +31,7 @@ const productApi = createApi({
 
     updateProdutStatus: builder.mutation({
       query: (arg: { id: string; status: boolean }) => ({
-        url: `/product`,
+        url: `admin/product`,
         method: "PATCH",
         body: arg,
       }),
@@ -34,7 +40,7 @@ const productApi = createApi({
 
     getProductById: builder.query({
       query: (productId: string) => ({
-        url: `/products?id=${productId}`,
+        url: `admin/products?id=${productId}`,
         method: "GET",
       }),
       providesTags: ["Product"],
@@ -42,7 +48,7 @@ const productApi = createApi({
 
     getAllProduct: builder.query({
       query: () => ({
-        url: "/products",
+        url: "admin/products",
         method: "GET",
       }),
       providesTags: ["Product"],
@@ -50,7 +56,7 @@ const productApi = createApi({
 
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `/product`,
+        url: `admin/product`,
         method: "DELETE",
         body: id,
       }),

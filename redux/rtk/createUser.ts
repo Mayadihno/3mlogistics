@@ -3,13 +3,19 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl:
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_PROD_API_URL
+        : typeof window !== "undefined" &&
+          window.location.hostname === "localhost"
+        ? process.env.NEXT_PUBLIC_API_URL
+        : process.env.NEXT_PUBLIC_API_BASE_URL_MOBILE,
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
     createUser: builder.mutation({
       query: (userData) => ({
-        url: "/create-user",
+        url: "create-user",
         method: "POST",
         body: userData,
       }),
@@ -18,7 +24,7 @@ const userApi = createApi({
 
     loginUser: builder.mutation({
       query: (data) => ({
-        url: "/login",
+        url: "login",
         method: "POST",
         body: data,
       }),
@@ -27,7 +33,7 @@ const userApi = createApi({
 
     changePassword: builder.mutation({
       query: ({ newData, userId }) => ({
-        url: "/change-password",
+        url: "change-password",
         method: "POST",
         body: { newData, userId },
       }),
@@ -35,7 +41,7 @@ const userApi = createApi({
     }),
     editProfile: builder.mutation({
       query: (data) => ({
-        url: "/edit-profile",
+        url: "edit-profile",
         method: "PATCH",
         body: data,
       }),

@@ -3,34 +3,40 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const userProductApi = createApi({
   reducerPath: "userProductApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/user",
+    baseUrl:
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_PROD_API_URL
+        : typeof window !== "undefined" &&
+          window.location.hostname === "localhost"
+        ? process.env.NEXT_PUBLIC_API_URL
+        : process.env.NEXT_PUBLIC_API_BASE_URL_MOBILE,
   }),
   tagTypes: ["Products", "Orders"],
   endpoints: (builder) => ({
     getUserProducts: builder.query({
       query: () => ({
-        url: "/products",
+        url: "user/products",
         method: "GET",
       }),
       providesTags: ["Products"],
     }),
     getProductById: builder.query({
       query: (productId: string) => ({
-        url: `/product-details?id=${productId}`,
+        url: `user/product-details?id=${productId}`,
         method: "GET",
       }),
       providesTags: ["Products"],
     }),
     getUserOrders: builder.query({
       query: (id: string) => ({
-        url: `/orders?id=${id}`,
+        url: `user/orders?id=${id}`,
         method: "GET",
       }),
       providesTags: ["Orders"],
     }),
     getUserOrderDetails: builder.query({
       query: (id: string) => ({
-        url: `/order-details?id=${id}`,
+        url: `user/order-details?id=${id}`,
         method: "GET",
       }),
       providesTags: ["Orders"],
