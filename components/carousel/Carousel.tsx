@@ -31,8 +31,8 @@ const Carousel = () => {
                 />
                 <div className="absolute inset-0 bg-black opacity-40" />
                 <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-1 md:px-4">
-                  <h3 className="md:text-6xl text-4xl font-bold font-prociono">
-                    Welcome to 3M Logistics Solution
+                  <h3 className="md:text-6xl text-4xl font-bold font-urbanist">
+                    Welcome to 3M Food & logistics Solution
                   </h3>
                   <h3 className="md:text-4xl text-xl font-semibold pt-5 font-prociono">
                     Where Goods are deliverd at your doorstep

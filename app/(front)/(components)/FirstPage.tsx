@@ -12,9 +12,9 @@ const FirstPage = () => {
     <div className="bg-welcomePage w-full relative">
       <div className="flex justify-center items-center pt-[100px] font-ebgaramond">
         <div className="text-center">
-          <h1 className="text-2xl font-bold py-5">Welcome to umlfood</h1>
+          <h1 className="text-3xl font-bold py-5">Welcome to</h1>
           <h1 className="text-5xl font-bold uppercase">
-            3m logistics solution
+            3M Food & logistics Solution
           </h1>
           <h3 className="text-2xl font-bold pt-6">Are you over 18 years ?</h3>
           <div className="flex justify-around items-center pt-10">

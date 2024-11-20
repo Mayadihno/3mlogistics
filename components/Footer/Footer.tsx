@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
         <div className="">
           <h3 className="text-2xl text-white pb-4">
-            3M Logistics Solution Features
+            3M Food & logistics Solution Features
           </h3>
           <div className="flex flex-col space-y-5 pl-2">
             {navbarData.map((item) => (
@@ -78,7 +78,11 @@ const Footer = () => {
       <div className=" text-center text-white font-semibold font-ebgaramond pb-3 text-xl">
         <h4>
           For further enquiries, questions, and feedback, kindly fill our form
-          by clicking here Contact Formand we shall get back to you.
+          by clicking here{" "}
+          <Link href={"/contact"} className="underline">
+            Contact
+          </Link>{" "}
+          Form and we shall get back to you.
         </h4>
       </div>
       <div className=" bg-white text-center w-full py-2">
