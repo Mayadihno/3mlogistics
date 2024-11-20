@@ -1,12 +1,12 @@
 "use client";
-import { product, ProductProp, ProductProps } from "@/utils/productData";
+import { ProductProps } from "@/utils/productData";
 import React from "react";
 import ProductCard from "./ProductCard";
 import { useGetUserProductsQuery } from "@/redux/rtk/user";
 
 const RelatedProduct = ({ params }: { params: { id: string } }) => {
   const productId = params.id;
-  const { data, isLoading } = useGetUserProductsQuery({});
+  const { data } = useGetUserProductsQuery({});
   const products = data?.products;
   const currentProduct = products.find(
     (item: ProductProps) => item._id === productId
