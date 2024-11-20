@@ -170,14 +170,6 @@ const AdminProduct = () => {
               </div>
             )}
 
-            <div className="flex justify-end items-center my-8">
-              <Paginate
-                setPage={setPage}
-                totalPages={data.totalPages}
-                page={page}
-              />
-            </div>
-
             {isLoading && (
               <div className="flex justify-center items-center mt-[120px]">
                 <LoaderCircle size={55} className="animate-spin" />
@@ -266,6 +258,13 @@ const AdminProduct = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="flex justify-end items-center my-8">
+              <Paginate
+                setPage={setPage}
+                totalPages={data.totalPages}
+                page={page}
+              />
             </div>
           </div>
         </div>
