@@ -47,18 +47,18 @@ const StripePayment = ({ amount }: { amount: number }) => {
       .then((data) => setClientSecret(data?.clientSecret))
       .catch((error) => console.error("Error creating payment intent:", error));
   }, [amount]);
-  useEffect(() => {
-    if (stripe) {
-      stripe.retrievePaymentIntent(clientSecret).then((result) => {
-        setPaymentIntent(result);
-        if (result && result.paymentIntent?.status === "succeeded") {
-          toast.success("Payment succeeded!");
-        } else {
-          toast.error("Your payment was not successful, please try again.");
-        }
-      });
-    }
-  }, [stripe, clientSecret]);
+  // useEffect(() => {
+  //   if (stripe) {
+  //     stripe.retrievePaymentIntent(clientSecret).then((result) => {
+  //       setPaymentIntent(result);
+  //       if (result && result.paymentIntent?.status === "succeeded") {
+  //         toast.success("Payment succeeded!");
+  //       } else {
+  //         toast.error("Your payment was not successful, please try again.");
+  //       }
+  //     });
+  //   }
+  // }, [stripe, clientSecret]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
