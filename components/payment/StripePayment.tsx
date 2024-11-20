@@ -44,7 +44,7 @@ const StripePayment = ({ amount }: { amount: number }) => {
       body: JSON.stringify({ amount: convertToSubcurrency(amount) }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => setClientSecret(data?.clientSecret))
       .catch((error) => console.error("Error creating payment intent:", error));
   }, [amount]);
   useEffect(() => {
@@ -58,7 +58,7 @@ const StripePayment = ({ amount }: { amount: number }) => {
         }
       });
     }
-  }, []);
+  }, [stripe, clientSecret]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
