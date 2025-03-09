@@ -37,10 +37,7 @@ const Navbar = () => {
           </Link>
 
           {/* Mobile Menu Icon */}
-          <div
-            className="md:hidden cursor-pointer flex space-x-4 justify-between"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          <div className="md:hidden cursor-pointer flex space-x-4 justify-between">
             <div
               className="cursor-pointer relative"
               onClick={() => setOpen(!open)}
@@ -50,7 +47,9 @@ const Navbar = () => {
                 {cartItems?.length}
               </span>
             </div>
-            {menuOpen ? <ICONS.close size={30} /> : <ICONS.menu size={30} />}
+            <div onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? <ICONS.close size={30} /> : <ICONS.menu size={30} />}
+            </div>
           </div>
 
           {/* Desktop Menu */}

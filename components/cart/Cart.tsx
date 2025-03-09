@@ -35,7 +35,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
 
   return (
     <div className="fixed w-full h-screen top-0 left-0 bg-[#00000030] z-50 flex justify-end">
-      <div className="relative w-[95%] md:w-[30%] h-screen bg-white rounded-sm shadow-sm md:mt-0 mt-[-50px] ">
+      <div className="relative w-[95%] md:w-[30%] h-screen bg-white rounded-sm shadow-sm md:mt-0 ">
         <div className="flex justify-between items-center shadow-lg w-full p-3 font-ebgaramond">
           <h2 className=" text-2xl font-semibold">Cart Overview</h2>
           <div
@@ -46,7 +46,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
           </div>
         </div>
         {cartItems.length > 0 ? (
-          <div className="">
+          <div className="relative h-screen flex flex-col">
             <div className="p-3 font-ebgaramond overflow-y-scroll h-[530px]">
               {cartItems?.map((item) => (
                 <div key={item?._id} className="">
@@ -54,7 +54,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
                 </div>
               ))}
             </div>
-            <div className="w-full p-3 bg-[#0000000c] font-ebgaramond">
+            <div className="w-full p-3 bottom-16 absolute bg-[#0000000c] font-ebgaramond">
               <div className="flex py-2 justify-between items-center">
                 <h1 className="text-2xl font-semibold">Subtotal</h1>
                 <h3 className="text-lg font-bold">
@@ -70,7 +70,7 @@ const Cart = ({ setOpen, open }: CartProp) => {
             </div>
           </div>
         ) : (
-          <div className="h-[80vh] flex justify-center flex-col items-center">
+          <div className="md:h-[80vh] h-[50vh] flex justify-center flex-col items-center">
             <div className="w-[150px] h-[150px]">
               <Image
                 src={image}
@@ -93,8 +93,6 @@ export default Cart;
 const SingleCart = ({ item }: { item: CartItem }) => {
   const [value, setValue] = useState(item?.qty);
   const dispatch = useAppDispatch();
-
-  console.log(item);
 
   const increment = (item: CartItem) => {
     const newQty = value + 1;
@@ -128,8 +126,7 @@ const SingleCart = ({ item }: { item: CartItem }) => {
           <h3 className="text-lg line-clamp-1 font-semibold">{item.name}</h3>
           <div className="flex justify-between items-center pt-5">
             <h4 className="text-base font-medium">
-              {formatCurrency(item.price ?? 0)} *{" "}
-              {formatNumber(item.qty)}
+              {formatCurrency(item.price ?? 0)} * {formatNumber(item.qty)}
             </h4>
             <h2 className="text-lg font-medium flex justify-end">
               {formatCurrency(totalPrice)}
