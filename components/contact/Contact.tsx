@@ -57,15 +57,15 @@ const Contact = () => {
           }
         );
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error("Something went wrong. Try again later");
       setLoading(false);
     }
   };
   return (
-    <div className=" w-[90%] mx-auto mt-6 mb-10">
+    <div className=" md:w-[90%] w-[95%] mx-auto mt-6 mb-10">
       <h2 className="text-4xl font-semibold text-center pb-6">Contact Us</h2>
-      <div className="bg-white shadow-2xl py-4 px-6 rounded-md w-[70%] mx-auto">
+      <div className="bg-white shadow-2xl py-4 px-6 rounded-md md:w-[70%] w-full mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="font-ebgaramond">
           <div className="flex space-x-5">
             <div className="w-full">
@@ -132,7 +132,7 @@ const Contact = () => {
             />
           </div>
           <div className="mt-5">
-            <button className="bg-white w-full text-lg font-semibold text-center text-[#202C45] hover:text-white px-5 py-3 rounded-md hover:bg-[#202C45]/100">
+            <button className="md:bg-white bg-[#202C45] w-full text-lg font-semibold text-center text-white md:text-[#202C45] hover:text-white px-5 py-3 rounded-md hover:bg-[#202C45]/100">
               {loading ? (
                 <span className="flex items-center justify-center">
                   <LoaderCircle className="mr-2 animate-spin" />
