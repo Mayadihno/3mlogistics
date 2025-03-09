@@ -16,7 +16,7 @@ const Danish = () => {
           <Image src={image} alt="smiles image" width={1000} height={560} />
         </Link>
       </div>
-      <h3 className="text-xl font-semibold font-ebgaramond pt-4">
+      <h3 className="md:text-xl text-lg text-center font-semibold font-ebgaramond pt-4">
         See the Danish Veterinary and Food Administration&apos;s smiley reports
       </h3>
     </div>

@@ -30,7 +30,7 @@ const Carousel = () => {
                   height={560}
                 />
                 <div className="absolute inset-0 bg-black opacity-40" />
-                <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-1 md:px-4">
+                <div className="absolute inset-0 flex flex-col justify-center text-center items-center text-white px-1 md:px-4">
                   <h3 className="md:text-6xl text-4xl font-bold font-urbanist">
                     Welcome to 3M Food & logistics Solution
                   </h3>

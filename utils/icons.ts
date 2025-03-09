@@ -23,6 +23,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { AiOutlineGoogle, AiOutlineEye } from "react-icons/ai";
 import { HiOutlineMinusSm } from "react-icons/hi";
 import { BsEyeSlash } from "react-icons/bs";
+import { CiMenuBurger } from "react-icons/ci";
 
 export const ICONS = {
   time: IoTimeOutline,
@@ -47,4 +48,5 @@ export const ICONS = {
   eyelock: BsEyeSlash,
   eye: AiOutlineEye,
   checkCircle: FaCheckCircle,
+  menu: CiMenuBurger,
 };

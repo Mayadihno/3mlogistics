@@ -12,7 +12,7 @@ const Footer = () => {
   }
   return (
     <div className=" w-full h-fit bg-[#202C45]">
-      <div className="grid grid-cols-1 md:grid-cols-3 w-[90%] mx-auto font-ebgaramond py-10 gap-x-16 md:gap-y-0 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-[90%] mx-auto font-ebgaramond md:py-10 py-6 gap-x-16 md:gap-y-0 gap-y-8">
         <div className="flex flex-col">
           <div className="">
             <Link href={"/"}>
@@ -75,7 +75,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" text-center text-white font-semibold font-ebgaramond pb-3 text-xl">
+      <div className="text-center text-white font-semibold font-ebgaramond pb-3 text-base md:text-xl">
         <h4>
           For further enquiries, questions, and feedback, kindly fill our form
           by clicking here{" "}

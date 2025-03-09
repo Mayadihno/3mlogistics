@@ -13,6 +13,7 @@ const Navbar = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const [open, setOpen] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
   const handleLogin = (e: FormEvent) => {
@@ -35,7 +36,25 @@ const Navbar = () => {
             <small className="text-sm text-[#202C45]">Logistics Solution</small>
           </Link>
 
-          <div className="flex-1 w-full mx-10">
+          {/* Mobile Menu Icon */}
+          <div
+            className="md:hidden cursor-pointer flex space-x-4 justify-between"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <div
+              className="cursor-pointer relative"
+              onClick={() => setOpen(!open)}
+            >
+              <ICONS.cart size={30} />
+              <span className="absolute font-ebgaramond -top-3 -right-3 bg-[#4976d6] w-[20px] h-[20px] text-white rounded-full flex items-center justify-center">
+                {cartItems?.length}
+              </span>
+            </div>
+            {menuOpen ? <ICONS.close size={30} /> : <ICONS.menu size={30} />}
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex flex-1 mx-10">
             <input
               type="text"
               placeholder="Search"
@@ -43,7 +62,7 @@ const Navbar = () => {
             />
           </div>
 
-          <div className="flex space-x-6 items-center">
+          <div className="hidden md:flex space-x-6 items-center">
             {navbarData.map((item) => (
               <div
                 className="font-prociono font-semibold text-xl"
@@ -61,37 +80,33 @@ const Navbar = () => {
                 </Link>
               </div>
             ))}
-            <div className="font-prociono font-semibold text-xl">
-              {user?.data?.role === "admin" && (
-                <Link
-                  href={"/admin-dashboard"}
-                  className={`${
-                    pathname === "/admin-dashboard"
-                      ? "bg-[#202c45c4] text-[#f7f7f7] px-4 py-2 rounded-lg"
-                      : "text-[#202C45] hover:text-[#4976d6]"
-                  }`}
-                >
-                  Dashboard
-                </Link>
-              )}
-            </div>
+            {user?.data?.role === "admin" && (
+              <Link
+                href={"/admin-dashboard"}
+                className={`${
+                  pathname === "/admin-dashboard"
+                    ? "bg-[#202c45c4] text-[#f7f7f7] px-4 py-2 rounded-lg"
+                    : "text-[#202C45] hover:text-[#4976d6]"
+                }`}
+              >
+                Dashboard
+              </Link>
+            )}
             <div className="flex items-center space-x-6">
               <div className="cursor-pointer" onClick={() => setOpen(!open)}>
                 <div className="relative cursor-pointer">
                   <ICONS.cart size={30} />
-                  <span className=" absolute font-ebgaramond -top-3 -right-3 bg-[#4976d6] w-[20px] h-[20px] text-white rounded-full flex items-center justify-center">
+                  <span className="absolute font-ebgaramond -top-3 -right-3 bg-[#4976d6] w-[20px] h-[20px] text-white rounded-full flex items-center justify-center">
                     {cartItems?.length}
                   </span>
                 </div>
               </div>
               {isAuthenticated ? (
-                <>
-                  <Dropdown />
-                </>
+                <Dropdown />
               ) : (
                 <Button
                   onClick={handleLogin}
-                  className=" font-semibold bg-[#202C45] tracking-widest text-white"
+                  className="font-semibold bg-[#202C45] tracking-widest text-white"
                 >
                   Login
                 </Button>
@@ -99,6 +114,43 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden flex flex-col space-y-3 mt-3">
+            {navbarData.map((item) => (
+              <Link
+                key={item.id}
+                href={item.link}
+                className="text-[#202C45] hover:text-[#4976d6] px-4 py-2 border-b"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.text}
+              </Link>
+            ))}
+            {user?.data?.role === "admin" && (
+              <Link
+                href={"/admin-dashboard"}
+                className="text-[#202C45] hover:text-[#4976d6] px-4 py-2 border-b"
+                onClick={() => setMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+            )}
+            <div className="flex justify-between px-4 py-2">
+              {isAuthenticated ? (
+                <Dropdown />
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  className="font-semibold bg-[#202C45] tracking-widest text-white"
+                >
+                  Login
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       {open && <Cart open={open} setOpen={setOpen} />}
     </>
