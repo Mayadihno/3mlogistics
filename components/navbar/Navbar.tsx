@@ -18,6 +18,7 @@ const Navbar = () => {
   const router = useRouter();
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
+    setMenuOpen(false);
     router.push("/login");
   };
 
@@ -101,7 +102,7 @@ const Navbar = () => {
                 </div>
               </div>
               {isAuthenticated ? (
-                <Dropdown />
+                <Dropdown setMenuOpen={setMenuOpen} />
               ) : (
                 <Button
                   onClick={handleLogin}
@@ -138,7 +139,7 @@ const Navbar = () => {
             )}
             <div className="flex justify-between px-4 py-2">
               {isAuthenticated ? (
-                <Dropdown />
+                <Dropdown setMenuOpen={setMenuOpen} />
               ) : (
                 <Button
                   onClick={handleLogin}

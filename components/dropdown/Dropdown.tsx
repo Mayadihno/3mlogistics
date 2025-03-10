@@ -16,7 +16,11 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { logout } from "@/redux/slice/userSlice";
 
-const Dropdown = () => {
+interface DropdownProps {
+  setMenuOpen: (open: boolean) => void;
+}
+
+const Dropdown = ({ setMenuOpen }: DropdownProps) => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -27,10 +31,12 @@ const Dropdown = () => {
     dispatch(logout());
     setIsOpen(false);
     toast.success("Logged out successfully");
+    setMenuOpen(false);
     router.push("/login");
   };
   const closeDropdown = () => {
     setIsOpen(false);
+    setMenuOpen(false);
   };
 
   return (

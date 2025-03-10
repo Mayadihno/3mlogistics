@@ -56,9 +56,9 @@ const Login = () => {
   };
 
   return (
-    <div className=" w-[70%] mx-auto mb-10">
+    <div className="md:w-[70%] w-[95%] mx-auto mb-10">
       <h2 className="text-4xl font-semibold text-center pb-6 pt-8">Login</h2>
-      <div className="w-1/2 mx-auto my-6 shadow-2xl rounded-md">
+      <div className="md:w-1/2 w-full mx-auto my-6 shadow-2xl rounded-md">
         <form onSubmit={handleSubmit(onSubmit)} className="mt-4 px-4 py-4">
           <div className="py-4">
             <TextInput

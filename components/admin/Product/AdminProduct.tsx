@@ -262,7 +262,7 @@ const AdminProduct = () => {
             <div className="flex justify-end items-center my-8">
               <Paginate
                 setPage={setPage}
-                totalPages={data.totalPages}
+                totalPages={data?.totalPages}
                 page={page}
               />
             </div>

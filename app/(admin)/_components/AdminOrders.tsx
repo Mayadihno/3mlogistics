@@ -113,7 +113,7 @@ const AdminOrders = () => {
     );
   const totalOrders = data?.orders.length;
   return (
-    <div className=" font-ebgaramond mx-10">
+    <div className=" font-ebgaramond md:mx-10 mx-2">
       <h3 className="text-3xl font-semibold text-center pt-6">All Orders</h3>
       <div className=" my-6">
         {data && (

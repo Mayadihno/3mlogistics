@@ -23,8 +23,8 @@ const Payment = () => {
   }, []);
 
   return (
-    <div className="flex justify-between w-[75%] mx-auto space-x-5 font-ebgaramond">
-      <div className="w-1/2 mx-auto h-fit my-10 border rounded-md shadow-md p-5">
+    <div className="flex md:flex-row flex-col justify-between md:w-[75%] w-[95%] mx-auto md:space-x-5 font-ebgaramond">
+      <div className="md:w-1/2 w-full mx-auto h-fit my-10 border rounded-md shadow-md p-5">
         <div className="py-2 border-b-2 text-sm text-nowrap">
           <h2 className="text-2xl font-semibold">Buyer Information</h2>
           <div className="flex justify-between space-y-4 md:space-y-0 md:flex-row flex-col py-2 md:items-center">
@@ -93,7 +93,7 @@ const Payment = () => {
           <h4>{formatCurrency(orderData?.totalPrice ?? 0)}</h4>
         </div>
       </div>
-      <div className=" w-1/2 mx-auto my-10">
+      <div className="md:w-1/2 w-full mx-auto md:my-10 my-5">
         <PaymentInfo />
       </div>
     </div>

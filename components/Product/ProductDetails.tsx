@@ -16,7 +16,6 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
   const productId = params.id;
   const dispatch = useAppDispatch();
   const { data } = useGetProductByIdQuery(productId);
-  console.log(data);
   const product = data?.product;
   const decrementCount = () => {
     setCount((prev) => (prev === 1 ? 1 : prev - 1));
@@ -26,7 +25,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
   };
 
   const handleAddToCart = (item: ProductProps) => {
-    const isItemExist = cartItems && cartItems.find((i) => i._id === item._id);
+    const isItemExist = cartItems && cartItems?.find((i) => i._id === item._id);
     if (isItemExist) {
       toast.error("Item already exist in cart");
       return;
@@ -46,8 +45,8 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="mt-10 mb-5 w-[95%] mx-auto font-ebgaramond">
-      <div className="flex space-x-16">
-        <div className="w-[50%]">
+      <div className="flex md:flex-row flex-col md:space-x-16 space-x-0 md:space-y-0 space-y-7">
+        <div className="md:w-[50%] w-full">
           <div className="md:w-[300px] w-full md:h-[300px] my-5">
             <Image
               src={product?.image[select]}
@@ -82,7 +81,7 @@ const ProductDetails = ({ params }: { params: { id: string } }) => {
               ))}
           </div>
         </div>
-        <div className="pl-4 w-[50%]">
+        <div className="pl-4 md:w-[50%] w-full">
           <h3 className="text-5xl font-semibold">{product?.name}</h3>
           <div className=" py-5 flex justify-between items-center">
             <div className="">

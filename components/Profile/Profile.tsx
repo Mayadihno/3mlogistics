@@ -17,21 +17,21 @@ const Profile = () => {
               <TabsList className="grid w-full grid-cols-3 py-3 px-6 font-prociono rounded-[5px] bg-[#27272a74]">
                 <TabsTrigger
                   value="profile"
-                  className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
+                  className="text-black md:text-base text-sm font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
                      data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="edit-profile"
-                  className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
+                  className="text-black md:text-base text-sm  font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
                      data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Edit Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="change-password"
-                  className="text-black text-base font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
+                  className="text-black md:text-base text-sm font-bold px-4 py-2 cursor-pointer data-[state=active]:rounded-[10px] 
                      data-[state=active]:bg-[#202C45] data-[state=active]:text-white"
                 >
                   Change Password

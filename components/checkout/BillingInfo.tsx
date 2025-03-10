@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { setItem } from "@/utils/storage";
 
-
 export interface AddressProp {
   firstName: string;
   lastName: string;
@@ -77,7 +76,7 @@ const BillingInfo = () => {
   return (
     <>
       {/* <CheckoutSteps current={0} /> */}
-      <div className="grid grid-cols-3 w-full space-x-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-y-8 md:space-x-6">
         <form
           onSubmit={handleSubmit(handlePayment)}
           className="w-full font-ebgaramond col-span-2"
@@ -140,7 +139,7 @@ const BillingInfo = () => {
                   errors={errors}
                 />
               </div>
-              <div className="flex-1 !text-base">
+              <div className="flex-1 !text-base mt-[-3px]">
                 <TextInput
                   label="Country"
                   name="countries"
@@ -155,7 +154,7 @@ const BillingInfo = () => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-x-6 my-5">
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-y-4 gap-x-6 my-5">
               <div className="flex-1 !text-base">
                 <TextInput
                   label="City"

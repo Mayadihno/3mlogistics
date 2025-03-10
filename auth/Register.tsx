@@ -58,12 +58,12 @@ const Register = () => {
     }
   };
   return (
-    <div className="w-[70%] mx-auto mb-10">
-      <h2 className="text-4xl font-semibold text-center pb-6 pt-8">
+    <div className="md:w-[70%] w-[95%] mx-auto mb-10">
+      <h2 className="text-4xl font-semibold text-center md:pb-6 pt-8">
         Create Account
       </h2>
-      <div className="w-1/2 mx-auto my-6 p-4 shadow-lg rounded-md">
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-4 px-4 py-4">
+      <div className="md:w-1/2 w-full mx-auto md:my-6 p-4 shadow-lg rounded-md">
+        <form onSubmit={handleSubmit(onSubmit)} className="md:mt-4 px-4 py-4">
           {generalErrorMesg && (
             <h2
               style={{ color: "#ef4444" }}
@@ -72,7 +72,7 @@ const Register = () => {
               {generalErrorMesg}
             </h2>
           )}
-          <div className="flex items-center space-x-6">
+          <div className="flex md:flex-row gap-x-7 flex-col items-center space-y-3 md:space-y-0">
             <div className="my-3 w-full">
               <TextInput
                 label="First Name"
@@ -92,7 +92,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-6 items-center my-5">
+          <div className="flex md:flex-row flex-col md:my-5 my-3 items-center gap-x-7 space-y-3 md:space-y-0">
             <div className="my-3 w-full">
               <TextInput
                 label="Email"
@@ -113,8 +113,8 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="flex items-center space-x-6">
-            <div className="w-full">
+          <div className="flex md:flex-row flex-col items-center gap-x-7 space-y-5 md:space-y-0">
+            <div className="w-full my-3">
               <TextInput
                 label="Password"
                 placeholder="password"
@@ -125,7 +125,7 @@ const Register = () => {
                 suffixIcon={<ICONS.eye />}
               />
             </div>
-            <div className="w-full">
+            <div className="w-full my-3">
               <TextInput
                 label="Confirm Password"
                 placeholder="Confirm password"
