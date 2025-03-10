@@ -48,7 +48,7 @@ const AdminOrderDetails = ({ orderId }: { orderId: string }) => {
   };
   const handleRefundStatus = async () => {};
   return (
-    <div className={`py-4 min-h-screen font-ebgaramond mx-10`}>
+    <div className={`py-4 min-h-screen font-ebgaramond md:mx-10 mx-3`}>
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center">
           <BsFillBagFill size={30} color="crimson" />
@@ -75,7 +75,7 @@ const AdminOrderDetails = ({ orderId }: { orderId: string }) => {
       <br />
       <br />
       {/* order items */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
         {data &&
           data?.order.cartItems?.map((item: CartItem) => {
             return (
