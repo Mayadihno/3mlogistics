@@ -48,6 +48,9 @@ const Navbar = () => {
                 {cartItems?.length}
               </span>
             </div>
+            <div className="flex justify-between px-4 py-2">
+              {isAuthenticated && <Dropdown setMenuOpen={setMenuOpen} />}
+            </div>
             <div onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <ICONS.close size={30} /> : <ICONS.menu size={30} />}
             </div>
@@ -138,9 +141,7 @@ const Navbar = () => {
               </Link>
             )}
             <div className="flex justify-between px-4 py-2">
-              {isAuthenticated ? (
-                <Dropdown setMenuOpen={setMenuOpen} />
-              ) : (
+              {!isAuthenticated && (
                 <Button
                   onClick={handleLogin}
                   className="font-semibold bg-[#202C45] tracking-widest text-white"

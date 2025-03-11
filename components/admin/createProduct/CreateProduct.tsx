@@ -162,7 +162,7 @@ const CreateProduct = () => {
   };
   return (
     <div className="flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl my-10">
+      <div className="bg-white md:p-8 p-4 rounded-lg shadow-lg w-full max-w-2xl my-10">
         <h1 className="text-2xl font-semibold mb-6 text-gray-700">
           Create Product
         </h1>
