@@ -159,9 +159,6 @@ const Dashboard = () => {
           <h5 className="py-3 pl-4 font-bold text-2xl">
             {formatCurrency(availableBalance)}
           </h5>
-          <Link href={""}>
-            <h5 className="pl-4 text-[#077f9c]">Withdraw Money</h5>
-          </Link>
         </div>
         <div className="w-full mb-4 md:w-[30%] min-h-[20vh] bg-white shadow-md md:shadow px-2 rounded py-5">
           <div className="flex items-center pl-4">
