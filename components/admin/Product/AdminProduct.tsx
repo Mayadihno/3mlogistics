@@ -94,7 +94,7 @@ const AdminProduct = () => {
       <div className=" w-full h-full my-10">
         <div className="md:px-5 px-1">
           <div className="flex justify-between items-center pb-4">
-            <h1 className="text-2xl text-center font-semibold mb-6 text-gray-700">
+            <h1 className="text-2xl text-center font-semibold md:mb-6 mb-0 text-gray-700">
               All products
             </h1>
             <Button className="" onClick={() => setOpen(!open)}>
