@@ -38,7 +38,7 @@ const Navbar = () => {
           </Link>
 
           {/* Mobile Menu Icon */}
-          <div className="md:hidden cursor-pointer flex space-x-4 justify-between">
+          <div className="md:hidden cursor-pointer flex items-center space-x-5 justify-between">
             <div
               className="cursor-pointer relative"
               onClick={() => setOpen(!open)}
@@ -48,7 +48,7 @@ const Navbar = () => {
                 {cartItems?.length}
               </span>
             </div>
-            <div className="flex justify-between px-4 py-2">
+            <div className="">
               {isAuthenticated && <Dropdown setMenuOpen={setMenuOpen} />}
             </div>
             <div onClick={() => setMenuOpen(!menuOpen)}>
