@@ -145,7 +145,7 @@ const Dashboard = () => {
       </div>
     );
   return (
-    <div className="md:w-full font-ebgaramond px-5 mt-5">
+    <div className="md:w-full font-ebgaramond md:px-5 px-1 mt-5">
       <h3 className="font-ebgaramond font-bold text-2xl pb-2 md:pb-5">
         Overview
       </h3>
