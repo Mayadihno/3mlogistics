@@ -16,7 +16,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           </div>
           <div
             className="xl:max-w-screen-xl 2xl:max-w-screen-2xl sm:max-w-screen-sm
-           md:max-w-screen-md lg:max-w-screen-lg mx-auto max-w-[440px] h-full w-full md:overflow-y-auto"
+           md:max-w-screen-md lg:max-w-screen-lg md:mx-auto mx-2 max-w-[440px] h-full w-full md:overflow-y-auto"
           >
             {children}
           </div>
