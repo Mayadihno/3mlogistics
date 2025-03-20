@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className="bg-white px-3 pt-2 pb-3 sticky top-0 z-50 border-b-2 shadow-md">
         <div className="flex justify-between items-center">
           <Link href={"/"}>
-            <span className="text-6xl font-bold cursor-pointer hover:text-[#4976d6] font-ebgaramond text-[#202C45]">
+            <span className="text-2xl font-bold cursor-pointer hover:text-[#4976d6] font-ebgaramond text-[#202C45]">
               3M Food
             </span>
             <small className="text-sm text-[#202C45]">Logistics Solution</small>

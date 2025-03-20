@@ -25,7 +25,7 @@ const AdminNavbar = () => {
 
   return (
     <>
-      <header className="h-26 w-full sticky top-0 z-50 border-b bg-slate-50 px-4 lg:h-[60px] lg:px-6">
+      <header className="h-28 w-full sticky top-0 z-50 border-b bg-slate-50 px-4 lg:h-[60px] lg:px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <button
@@ -36,7 +36,7 @@ const AdminNavbar = () => {
             </button>
 
             <Link href={"/admin-dashboard"}>
-              <span className="text-5xl font-bold text-[#202C45] hover:text-[#4976d6] cursor-pointer font-ebgaramond">
+              <span className="text-2xl font-bold text-[#202C45] hover:text-[#4976d6] cursor-pointer font-ebgaramond">
                 3M Food
               </span>
               <small className="block text-sm text-[#202C45]">

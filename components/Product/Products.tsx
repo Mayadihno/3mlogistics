@@ -7,7 +7,8 @@ import ProductSkeleton from "../skeletom/ProductSkeleton";
 
 const Products = () => {
   const { data, isLoading } = useGetUserProductsQuery({});
-  const products = data?.products;
+  const products = data?.products?.slice(0, 8);
+
   return (
     <div className="w-full bg-[#f7f7f7]">
       <div className="flex flex-col text-center py-4">
