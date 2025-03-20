@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get("page") as string) || 1;
-  const limit = parseInt(searchParams.get("limit") as string) || 10;
+  const limit = parseInt(searchParams.get("limit") as string) || 20;
   const name = searchParams.get("name") || "";
   const category = searchParams.get("category") || "";
 

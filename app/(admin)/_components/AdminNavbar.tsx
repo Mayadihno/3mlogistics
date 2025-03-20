@@ -36,8 +36,8 @@ const AdminNavbar = () => {
             </button>
 
             <Link href={"/admin-dashboard"}>
-              <span className="text-6xl font-bold text-[#202C45] hover:text-[#4976d6] cursor-pointer font-ebgaramond">
-                3M
+              <span className="text-5xl font-bold text-[#202C45] hover:text-[#4976d6] cursor-pointer font-ebgaramond">
+                3M Food
               </span>
               <small className="block text-sm text-[#202C45]">
                 Logistics Solution

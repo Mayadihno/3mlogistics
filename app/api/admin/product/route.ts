@@ -82,7 +82,7 @@ export const GET = async (req: NextRequest) => {
   const search = searchParams.get("productName");
   const category = searchParams.get("category");
   const page = parseInt(searchParams.get("page") || "1", 10);
-  const limit = parseInt(searchParams.get("limit") || "10", 10);
+  const limit = parseInt(searchParams.get("limit") || "10", 20);
 
   console.log(search, category, page, limit);
   interface Query {

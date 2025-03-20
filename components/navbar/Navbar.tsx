@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Link href={"/"}>
             <span className="text-6xl font-bold cursor-pointer hover:text-[#4976d6] font-ebgaramond text-[#202C45]">
-              3M
+              3M Food
             </span>
             <small className="text-sm text-[#202C45]">Logistics Solution</small>
           </Link>
