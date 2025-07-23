@@ -9,8 +9,8 @@ const prociono = Prociono({
 });
 
 export const metadata: Metadata = {
-  title: "UmlFood",
-  description: "Umlfood Danish store",
+  title: "3mFood",
+  description: "3mfood Danish store",
 };
 
 export default function RootLayout({
